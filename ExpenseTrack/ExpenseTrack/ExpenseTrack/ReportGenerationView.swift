@@ -1,7 +1,4 @@
-//
 //  ReportGenerationView.swift
-//  ExpenseTrack
-//
 
 import SwiftUI
 
@@ -26,11 +23,5 @@ struct ReportGenerationView: View {
     private func generateReport() {
         let report = expenseManager.generateReport()
         print(report)
-    }
-}
-
-struct ReportGenerationView_Previews: PreviewProvider {
-    static var previews: some View {
-        ReportGenerationView()
     }
 }

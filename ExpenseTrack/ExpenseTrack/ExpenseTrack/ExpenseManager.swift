@@ -4,8 +4,8 @@ import Foundation
 
 class ExpenseManager: ObservableObject {
     @Published var expenses: [Expense] = []
-    @Published var categories: [String] = []
-    @Published var budgets: [String: Double] = [:]  
+    @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities"]
+    @Published var budgets: [String: Double] = [:]
     
     func addExpense(_ expense: Expense) {
         expenses.append(expense)
@@ -16,7 +16,6 @@ class ExpenseManager: ObservableObject {
     }
     
     func generateReport() -> String {
-        // report generation logic
         var report = "Expense Report\n\n"
         for expense in expenses {
             report += "Category: \(expense.category), Amount: \(expense.amount), Date: \(expense.date)\n"

@@ -1,8 +1,4 @@
-//
-//  ExpenseRowView.swift
-//  ExpenseTrack
-//
-
+// ExpenseRowView.swift
 
 import SwiftUI
 

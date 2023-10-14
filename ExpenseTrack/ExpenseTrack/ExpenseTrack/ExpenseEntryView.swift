@@ -6,12 +6,16 @@ struct ExpenseEntryView: View {
     @EnvironmentObject var expenseManager: ExpenseManager
     @State private var category: String = ""
     @State private var amount: Double = 0.0
-    @State private var feedback: String = ""  // Added feedback state
+    @State private var feedback: String = ""
     
     var body: some View {
         Form {
             Section(header: Text("Expense Details")) {
-                TextField("Category", text: $category)
+                Picker("Category", selection: $category) {
+                    ForEach(expenseManager.categories, id: \.self) { category in
+                        Text(category).tag(category)
+                    }
+                }
                 TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? ""))
             }
             

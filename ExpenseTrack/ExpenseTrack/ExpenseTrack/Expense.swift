@@ -1,8 +1,4 @@
-//
-//  Expense.swift
-//  ExpenseTrack
-//
-
+// Expense.swift
 
 import Foundation
 
@@ -12,4 +8,3 @@ struct Expense: Identifiable {
     let amount: Double
     let date: Date
 }
-

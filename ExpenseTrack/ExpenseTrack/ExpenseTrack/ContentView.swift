@@ -1,7 +1,4 @@
-//
 //  ContentView.swift
-//  ExpenseTrack
-//
 
 import SwiftUI
 
