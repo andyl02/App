@@ -36,7 +36,7 @@ struct BudgetTrackingView: View {
                         HStack {
                             Text(category)
                             Spacer()
-                            Text("\(expenseManager.getBudget(for: category), specifier: "%.2f")")
+                            Text("\(expenseManager.getBudget(for: category) ?? 0.0, specifier: "%.2f")")
                         }
                     }
                 }

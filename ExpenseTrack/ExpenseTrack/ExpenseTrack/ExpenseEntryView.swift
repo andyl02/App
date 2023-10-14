@@ -26,9 +26,7 @@ struct ExpenseEntryView: View {
             Button("Add Expense") {
                 if let amountDouble = Double(amount), !selectedCategory.isEmpty {
                     let expense = Expense(category: selectedCategory, amount: amountDouble, date: date)
-                    if expenseManager.addExpense(expense) {
-                        showAlert = false
-                    } else {
+                    if !expenseManager.addExpense(expense) {
                         showAlert = true
                     }
                 } else {
