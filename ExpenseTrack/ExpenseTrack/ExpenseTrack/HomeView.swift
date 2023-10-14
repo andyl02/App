@@ -48,6 +48,16 @@ struct HomeView: View {
                     .cornerRadius(10)
             }
             .padding(.top, 20)
+
+            NavigationLink(destination: DashboardView()) {
+                Text("Dashboard")
+                    .font(.title2)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding(.top, 20)
         }
         .padding()
     }
