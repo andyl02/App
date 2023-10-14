@@ -1,8 +1,4 @@
-//
-//  CategoryManangementView.swift
-//  ExpenseTrack
-//
-
+// CategoryManagementView.swift
 
 import SwiftUI
 
@@ -13,10 +9,10 @@ struct CategoryManagementView: View {
     var body: some View {
         VStack {
             List {
-                ForEach(expenseManager.expenses, id: \.id) { expense in
-                    Text(expense.category)
+                ForEach($expenseManager.categories, id: \.self) { category in
+                    Text(category)
                 }
-                .onDelete(perform: deleteExpense)
+                .onDelete(perform: deleteCategory)
             }
             
             HStack {
@@ -31,17 +27,11 @@ struct CategoryManagementView: View {
     }
     
     private func addCategory() {
-        expenseManager.addExpense(Expense(category: newCategory, amount: 0.0, date: Date()))
+        $expenseManager.addCategory(newCategory)
         newCategory = ""
     }
     
-    private func deleteExpense(at offsets: IndexSet) {
-        expenseManager.deleteExpense(at: offsets.first ?? 0)
-    }
-}
-
-struct CategoryManagementView_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoryManagementView()
+    private func deleteCategory(at offsets: IndexSet) {
+        $expenseManager.deleteCategory(at: offsets)
     }
 }

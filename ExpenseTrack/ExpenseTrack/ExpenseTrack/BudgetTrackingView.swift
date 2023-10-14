@@ -1,12 +1,6 @@
-//
-//  BudgetTrackingView.swift
-//  ExpenseTrack
-//
-
+// BudgetTrackingView.swift
 
 import SwiftUI
-
-// BudgetTrackingView.swift
 
 struct BudgetTrackingView: View {
     @EnvironmentObject var expenseManager: ExpenseManager
