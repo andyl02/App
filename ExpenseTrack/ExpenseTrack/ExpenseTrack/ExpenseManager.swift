@@ -1,46 +1,53 @@
 // ExpenseManager.swift
 
-import Foundation
+import SwiftUI
+import Combine
 
 class ExpenseManager: ObservableObject {
     @Published var expenses: [Expense] = []
-    @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities"]
-    @Published var budgets: [String: Double] = [:]
-    
+    @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities", "Rent", "Miscellaneous"]
+    @Published var budgets: [String: Double] = [:] // This dictionary will store budgets for each category
+
+    init() {
+        // Sample data for testing
+        expenses = [
+            Expense(category: "Food", amount: 10.5, date: Date()),
+            Expense(category: "Transport", amount: 2.5, date: Date()),
+            Expense(category: "Entertainment", amount: 12.0, date: Date())
+        ]
+    }
+
     func addExpense(_ expense: Expense) {
         expenses.append(expense)
     }
-    
-    func deleteExpense(at index: Int) {
-        expenses.remove(at: index)
+
+    func deleteExpense(at offsets: IndexSet) {
+        expenses.remove(atOffsets: offsets)
     }
-    
-    func generateReport() -> String {
-        var report = "Expense Report\n\n"
-        for expense in expenses {
-            report += "Category: \(expense.category), Amount: \(expense.amount), Date: \(expense.date)\n"
-        }
-        return report
-    }
-    
+
     func addCategory(_ category: String) {
         categories.append(category)
     }
-    
-    func deleteCategory(at index: Int) {
-        categories.remove(at: index)
+
+    func deleteCategory(at offsets: IndexSet) {
+        categories.remove(atOffsets: offsets)
     }
-    
+
     func setBudget(for category: String, amount: Double) {
         budgets[category] = amount
     }
-    
-    func getBudget(for category: String) -> Double? {
-        return budgets[category]
-    }
 
-    // Function to calculate total expenses for a given category
+    func getBudget(for category: String) -> Double {
+        return budgets[category] ?? 0.0
+    }
+    
     func totalForCategory(_ category: String) -> Double {
         return expenses.filter { $0.category == category }.reduce(0) { $0 + $1.amount }
+    }
+
+    func remainingBudget(for category: String) -> Double {
+        let totalExpensesForCategory = expenses.filter { $0.category == category }.map { $0.amount }.reduce(0, +)
+        let budgetForCategory = getBudget(for: category)
+        return budgetForCategory - totalExpensesForCategory
     }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		991AA3172ADA9BA40012B075 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AA3162ADA9BA40012B075 /* DashboardView.swift */; };
 		991AA3192ADAA6940012B075 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AA3182ADAA6940012B075 /* PieChartView.swift */; };
+		991AA31B2ADACA900012B075 /* CategoryBudgetSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AA31A2ADACA900012B075 /* CategoryBudgetSettingView.swift */; };
 		99FBE2A42A9CADEB001F012E /* ExpenseTrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2A32A9CADEB001F012E /* ExpenseTrackApp.swift */; };
 		99FBE2A62A9CADEB001F012E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2A52A9CADEB001F012E /* ContentView.swift */; };
 		99FBE2A82A9CADED001F012E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99FBE2A72A9CADED001F012E /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		991AA3162ADA9BA40012B075 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		991AA3182ADAA6940012B075 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
+		991AA31A2ADACA900012B075 /* CategoryBudgetSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBudgetSettingView.swift; sourceTree = "<group>"; };
 		99FBE2A02A9CADEB001F012E /* ExpenseTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99FBE2A32A9CADEB001F012E /* ExpenseTrackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTrackApp.swift; sourceTree = "<group>"; };
 		99FBE2A52A9CADEB001F012E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				99FBE2CF2A9CAEE3001F012E /* CategoryManangementView.swift */,
 				99FBE2D12A9CAEFA001F012E /* BudgetTrackingView.swift */,
 				99FBE2D32A9CAF03001F012E /* ReportGenerationView.swift */,
+				991AA31A2ADACA900012B075 /* CategoryBudgetSettingView.swift */,
 				991AA3182ADAA6940012B075 /* PieChartView.swift */,
 				991AA3162ADA9BA40012B075 /* DashboardView.swift */,
 				99FBE2A72A9CADED001F012E /* Assets.xcassets */,
@@ -294,6 +297,7 @@
 				991AA3172ADA9BA40012B075 /* DashboardView.swift in Sources */,
 				991AA3192ADAA6940012B075 /* PieChartView.swift in Sources */,
 				99FBE2D62A9CB178001F012E /* HomeView.swift in Sources */,
+				991AA31B2ADACA900012B075 /* CategoryBudgetSettingView.swift in Sources */,
 				99FBE2D82A9CB656001F012E /* ExpenseManager.swift in Sources */,
 				99FBE2A62A9CADEB001F012E /* ContentView.swift in Sources */,
 				99FBE2DC2A9CB794001F012E /* Expense.swift in Sources */,

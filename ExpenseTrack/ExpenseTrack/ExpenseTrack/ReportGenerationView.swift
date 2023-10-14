@@ -27,6 +27,7 @@ struct ReportGenerationView: View {
                     .fontWeight(.bold)
                     .padding(.vertical, 10)
                 ForEach(self.expenseManager.categories, id: \.self) { category in
+                    // Assuming you have a function totalForCategory in ExpenseManager
                     let total = self.expenseManager.totalForCategory(category)
                     Text("\(category): $\(total, specifier: "%.2f")")
                 }
@@ -58,7 +59,6 @@ extension DateFormatter {
 
 struct ReportGenerationView_Previews: PreviewProvider {
     static var previews: some View {
-        ReportGenerationView()
+        ReportGenerationView().environmentObject(ExpenseManager())
     }
 }
-
