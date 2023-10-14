@@ -31,6 +31,9 @@ struct BudgetTrackingView: View {
             .padding()
         }
         .navigationTitle("Budget Tracking")
+        .onAppear {
+            calculateBudgets()
+        }
     }
     
     private func calculateBudgets() {
