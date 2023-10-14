@@ -30,15 +30,23 @@ struct ExpenseEntryView: View {
         }
         .navigationTitle("Add Expense")
     }
-    
+
     private func addExpense() {
         if category.isEmpty || amount <= 0 {
             feedback = "Please enter valid details."
             return
         }
-        
+
         let expense = Expense(category: category, amount: amount, date: Date())
         expenseManager.addExpense(expense)
         feedback = "Expense added successfully!"
+
+        // Check for budget limits
+        if let budget = expenseManager.getBudget(for: category), amount > budget {
+            // Show an alert (or notification) to the user
+            // This is a simple simulation. In a real-world app, you'd use notifications.
+            feedback = "Warning! You've exceeded your budget for \(category)."
+        }
     }
 }
+
