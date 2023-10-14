@@ -6,6 +6,8 @@
 
 import SwiftUI
 
+// BudgetTrackingView.swift
+
 struct BudgetTrackingView: View {
     @EnvironmentObject var expenseManager: ExpenseManager
     @State private var budgets: [String: Double] = [:]
@@ -46,11 +48,5 @@ struct BudgetTrackingView: View {
                 budgets[expense.category] = expense.amount
             }
         }
-    }
-}
-
-struct BudgetTrackingView_Previews: PreviewProvider {
-    static var previews: some View {
-        BudgetTrackingView()
     }
 }
