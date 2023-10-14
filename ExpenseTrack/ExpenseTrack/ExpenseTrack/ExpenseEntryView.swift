@@ -1,5 +1,3 @@
-// ExpenseEntryView.swift
-
 import SwiftUI
 
 struct ExpenseEntryView: View {
@@ -12,8 +10,11 @@ struct ExpenseEntryView: View {
         NavigationView {
             Form {
                 Section(header: Text("Expense Details")) {
-                    TextField("Amount", text: $amount)
-                        .keyboardType(.decimalPad)
+                    HStack {
+                        Text("$")
+                        TextField("Amount", text: $amount)
+                            .keyboardType(.decimalPad)
+                    }
                     Picker("Category", selection: $category) {
                         ForEach(expenseManager.categories, id: \.self) { category in
                             Text(category)
@@ -32,7 +33,8 @@ struct ExpenseEntryView: View {
 
     private func addExpense() {
         if let amountDouble = Double(amount), !category.isEmpty {
-            let expense = Expense(category: category, amount: amountDouble, date: date)
+            let formattedAmount = Double(String(format: "%.2f", amountDouble))!
+            let expense = Expense(category: category, amount: formattedAmount, date: date)
             expenseManager.addExpense(expense)
             amount = ""
             category = ""
