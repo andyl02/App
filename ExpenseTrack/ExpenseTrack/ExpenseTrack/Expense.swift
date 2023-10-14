@@ -1,10 +1,10 @@
-// Expense.swift
-
 import Foundation
+import CoreData
 
-struct Expense: Identifiable {
-    let id = UUID()
-    let category: String
-    let amount: Double
-    let date: Date
+@objc(Expense)
+public class Expense: NSManagedObject, Identifiable {
+    @NSManaged public var id: UUID?
+    @NSManaged public var category: String
+    @NSManaged public var amount: Double
+    @NSManaged public var date: Date
 }

@@ -1,37 +1,39 @@
-// ExpenseManager.swift
-
 import SwiftUI
 import Combine
+import CoreData
 
 class ExpenseManager: ObservableObject {
     @Published var expenses: [Expense] = []
     @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities", "Rent", "Miscellaneous"]
-    @Published var budgets: [String: Double] = [:] // This dictionary will store budgets for each category
+    @Published var budgets: [String: Double] = [:]
 
-    // Computed property to get expenses grouped by category
-    var expensesByCategory: [String: Double] {
-        var totals: [String: Double] = [:]
-        for expense in expenses {
-            totals[expense.category, default: 0] += expense.amount
-        }
-        return totals
-    }
+    private var coreDataStack = CoreDataStack.shared
 
     init() {
-        // Sample data for testing
-        expenses = [
-            Expense(category: "Food", amount: 10.5, date: Date()),
-            Expense(category: "Transport", amount: 2.5, date: Date()),
-            Expense(category: "Entertainment", amount: 12.0, date: Date())
-        ]
+        fetchExpenses()
+    }
+
+    func fetchExpenses() {
+        let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest()
+        do {
+            expenses = try coreDataStack.context.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
 
     func addExpense(_ expense: Expense) {
         expenses.append(expense)
+        coreDataStack.saveContext()
     }
 
     func deleteExpense(at offsets: IndexSet) {
-        expenses.remove(atOffsets: offsets)
+        for index in offsets {
+            let expense = expenses[index]
+            coreDataStack.context.delete(expense)
+        }
+        coreDataStack.saveContext()
+        fetchExpenses()
     }
 
     func addCategory(_ category: String) {
@@ -39,7 +41,11 @@ class ExpenseManager: ObservableObject {
     }
 
     func deleteCategory(at offsets: IndexSet) {
-        categories.remove(atOffsets: offsets)
+        for index in offsets {
+            let category = categories[index]
+            categories.remove(at: index)
+            budgets[category] = nil
+        }
     }
 
     func setBudget(for category: String, amount: Double) {
