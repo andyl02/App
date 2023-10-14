@@ -1,7 +1,4 @@
-//
-//  ExpenseTrackApp.swift
-//  ExpenseTrack
-//
+// ExpenseTrackApp.swift
 
 import SwiftUI
 

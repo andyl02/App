@@ -9,7 +9,7 @@ struct CategoryManagementView: View {
     var body: some View {
         VStack {
             List {
-                ForEach($expenseManager.categories, id: \.self) { category in
+                ForEach(expenseManager.categories, id: \.self) { category in
                     Text(category)
                 }
                 .onDelete(perform: deleteCategory)
@@ -27,11 +27,11 @@ struct CategoryManagementView: View {
     }
     
     private func addCategory() {
-        $expenseManager.addCategory(newCategory)
+        expenseManager.addCategory(newCategory)
         newCategory = ""
     }
     
     private func deleteCategory(at offsets: IndexSet) {
-        $expenseManager.deleteCategory(at: offsets)
+        expenseManager.deleteCategory(at: offsets)
     }
 }

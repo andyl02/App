@@ -1,39 +1,31 @@
-//
-//  ExpenseEntryView.swift
-//  ExpenseTrack
-//
-
+// ExpenseEntryView.swift
 import SwiftUI
 
 struct ExpenseEntryView: View {
     @EnvironmentObject var expenseManager: ExpenseManager
     @State private var category: String = ""
     @State private var amount: Double = 0.0
+    @State private var date: Date = Date()
     
     var body: some View {
         Form {
             Section(header: Text("Expense Details")) {
                 TextField("Category", text: $category)
-                TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? ""))
+                TextField("Amount", value: $amount, format: .currency(code: expenseManager.currencyCode))
+                DatePicker("Date", selection: $date, displayedComponents: .date)
             }
             
             Button(action: addExpense) {
-                Text("Save Expense")
+                Text("Add Expense")
             }
         }
-        .navigationTitle("Add Expense")
+        .navigationTitle("Expense Entry")
     }
     
     private func addExpense() {
-        let expense = Expense(category: category, amount: amount, date: Date())
-        expenseManager.addExpense(expense)
+        expenseManager.addExpense(Expense(category: category, amount: amount, date: date))
         category = ""
         amount = 0.0
-    }
-}
-
-struct ExpenseEntryView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExpenseEntryView()
+        date = Date()
     }
 }
