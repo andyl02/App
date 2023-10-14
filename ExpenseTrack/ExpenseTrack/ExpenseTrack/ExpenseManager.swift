@@ -5,6 +5,7 @@ import Foundation
 class ExpenseManager: ObservableObject {
     @Published var expenses: [Expense] = []
     @Published var categories: [String] = []
+    @Published var budgets: [String: Double] = [:]  
     
     func addExpense(_ expense: Expense) {
         expenses.append(expense)
@@ -15,18 +16,27 @@ class ExpenseManager: ObservableObject {
     }
     
     func generateReport() -> String {
-        // Placeholder implementation for generating a report
-        return "Expense Report"
+        // report generation logic
+        var report = "Expense Report\n\n"
+        for expense in expenses {
+            report += "Category: \(expense.category), Amount: \(expense.amount), Date: \(expense.date)\n"
+        }
+        return report
     }
     
-    // Added methods to manage categories
     func addCategory(_ category: String) {
         categories.append(category)
     }
     
-    func deleteCategory(at indexSet: IndexSet) {
-        for index in indexSet {
-            categories.remove(at: index)
-        }
+    func deleteCategory(at index: Int) {
+        categories.remove(at: index)
+    }
+    
+    func setBudget(for category: String, amount: Double) {
+        budgets[category] = amount
+    }
+    
+    func getBudget(for category: String) -> Double? {
+        return budgets[category]
     }
 }
