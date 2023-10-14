@@ -32,6 +32,8 @@ struct CategoryManagementView: View {
     }
     
     private func deleteCategory(at offsets: IndexSet) {
-        expenseManager.deleteCategory(at: offsets)
+        for index in offsets {
+            expenseManager.deleteCategory(at: index)
+        }
     }
 }
