@@ -38,4 +38,9 @@ class ExpenseManager: ObservableObject {
     func getBudget(for category: String) -> Double? {
         return budgets[category]
     }
+
+    // Function to calculate total expenses for a given category
+    func totalForCategory(_ category: String) -> Double {
+        return expenses.filter { $0.category == category }.reduce(0) { $0 + $1.amount }
+    }
 }
