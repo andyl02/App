@@ -1,37 +1,38 @@
-// CategoryManagementView.swift
-
 import SwiftUI
 
 struct CategoryManagementView: View {
     @EnvironmentObject var expenseManager: ExpenseManager
-    @State private var newCategory: String = ""
-    @State private var showAlert: Bool = false
+    @State private var newCategory = ""
 
     var body: some View {
-        Form {
-            Section(header: Text("Add New Category")) {
-                TextField("Category Name", text: $newCategory)
-                Button("Add") {
-                    if !newCategory.isEmpty && !expenseManager.categories.contains(newCategory) {
-                        expenseManager.addCategory(newCategory)
-                        newCategory = ""
-                    } else {
-                        showAlert = true
+        NavigationView {
+            Form {
+                Section(header: Text("Add New Category")) {
+                    TextField("Category Name", text: $newCategory)
+                    Button(action: addCategory) {
+                        Text("Add")
                     }
                 }
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text("Error"), message: Text("Invalid category name or category already exists."), dismissButton: .default(Text("OK")))
+
+                Section(header: Text("Existing Categories")) {
+                    ForEach(expenseManager.categories, id: \.self) { category in
+                        Text(category)
+                    }
+                    .onDelete(perform: deleteCategory)
                 }
             }
-            Section(header: Text("Existing Categories")) {
-                ForEach(expenseManager.categories, id: \.self) { category in
-                    Text(category)
-                }
-                .onDelete { indexSet in
-                    expenseManager.deleteCategories(at: indexSet)
-                }
-            }
+            .navigationBarTitle("Manage Categories", displayMode: .inline)
         }
-        .navigationTitle("Manage Categories")
+    }
+
+    private func addCategory() {
+        expenseManager.addCategory(newCategory)
+        newCategory = ""
+    }
+
+    private func deleteCategory(at offsets: IndexSet) {
+        for index in offsets {
+            expenseManager.deleteCategory(at: index)
+        }
     }
 }
