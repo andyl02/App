@@ -4,49 +4,42 @@ import SwiftUI
 
 struct ExpenseEntryView: View {
     @EnvironmentObject var expenseManager: ExpenseManager
-    @State private var category: String = ""
-    @State private var amount: Double = 0.0
-    @State private var feedback: String = ""
-    
+    @State private var selectedCategory: String = ""
+    @State private var amount: String = ""
+    @State private var date: Date = Date()
+    @State private var showAlert: Bool = false
+
     var body: some View {
-        Form {
-            Section(header: Text("Expense Details")) {
-                Picker("Category", selection: $category) {
-                    ForEach(expenseManager.categories, id: \.self) { category in
-                        Text(category).tag(category)
+        VStack {
+            Form {
+                Section(header: Text("Expense Details")) {
+                    Picker("Category", selection: $selectedCategory) {
+                        ForEach(expenseManager.categories, id: \.self) { category in
+                            Text(category).tag(category)
+                        }
                     }
+                    TextField("Amount", text: $amount)
+                        .keyboardType(.decimalPad)
+                    DatePicker("Date", selection: $date, displayedComponents: .date)
                 }
-                TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? ""))
             }
-            
-            Button(action: addExpense) {
-                Text("Save Expense")
+            Button("Add Expense") {
+                if let amountDouble = Double(amount), !selectedCategory.isEmpty {
+                    let expense = Expense(category: selectedCategory, amount: amountDouble, date: date)
+                    if expenseManager.addExpense(expense) {
+                        showAlert = false
+                    } else {
+                        showAlert = true
+                    }
+                } else {
+                    showAlert = true
+                }
             }
-            
-            if !feedback.isEmpty {
-                Text(feedback)
-                    .foregroundColor(.red)
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text("Invalid input or budget exceeded."), dismissButton: .default(Text("OK")))
             }
+            .padding()
         }
         .navigationTitle("Add Expense")
     }
-
-    private func addExpense() {
-        if category.isEmpty || amount <= 0 {
-            feedback = "Please enter valid details."
-            return
-        }
-
-        let expense = Expense(category: category, amount: amount, date: Date())
-        expenseManager.addExpense(expense)
-        feedback = "Expense added successfully!"
-
-        // Check for budget limits
-        if let budget = expenseManager.getBudget(for: category), amount > budget {
-            // Show an alert (or notification) to the user
-            // This is a simple simulation. In a real-world app, you'd use notifications.
-            feedback = "Warning! You've exceeded your budget for \(category)."
-        }
-    }
 }
-
