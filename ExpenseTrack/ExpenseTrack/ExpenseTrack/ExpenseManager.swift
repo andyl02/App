@@ -8,6 +8,15 @@ class ExpenseManager: ObservableObject {
     @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities", "Rent", "Miscellaneous"]
     @Published var budgets: [String: Double] = [:] // This dictionary will store budgets for each category
 
+    // Computed property to get expenses grouped by category
+    var expensesByCategory: [String: Double] {
+        var totals: [String: Double] = [:]
+        for expense in expenses {
+            totals[expense.category, default: 0] += expense.amount
+        }
+        return totals
+    }
+
     init() {
         // Sample data for testing
         expenses = [

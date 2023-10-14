@@ -1,59 +1,60 @@
-// PieChartView.swift
-
-// PieChartView.swift
-
 import SwiftUI
 
-struct PieChartView: View {
-    var data: [Double]
-    var title: String
-
+struct PieChartSegment: View {
+    var startAngle: Angle
+    var endAngle: Angle
+    var color: Color
+    
     var body: some View {
-        VStack {
-            Text(title)
-                .font(.title2)
-            GeometryReader { geometry in
-                PieChart(data: self.data)
+        GeometryReader { geometry in
+            Path { path in
+                let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                path.move(to: center)
+                path.addArc(center: center, radius: min(center.x, center.y), startAngle: startAngle, endAngle: endAngle, clockwise: false)
+            }
+            .fill(color)
+        }
+    }
+}
+
+struct PieChartView: View {
+    var data: [String: Double]
+    private var total: Double {
+        data.values.reduce(0, +)
+    }
+    
+    private func endAngle(for value: Double) -> Angle {
+        .degrees(360 * (value / total))
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            let sortedKeys = data.keys.sorted()
+            ZStack {
+                ForEach(0..<sortedKeys.count, id: \.self) { index in
+                    let key = sortedKeys[index]
+                    let value = data[key] ?? 0
+                    let startValue = sortedKeys.prefix(index).reduce(0) { $0 + (data[$1] ?? 0) }
+                    let start = self.endAngle(for: startValue)
+                    let end = self.endAngle(for: startValue + value)
+                    PieChartSegment(
+                        startAngle: start,
+                        endAngle: end,
+                        color: Color.random
+                    )
                     .frame(width: geometry.size.width, height: geometry.size.height)
+                }
             }
         }
     }
 }
 
-struct PieChart: Shape {
-    var data: [Double]
-    private var endAngles: [Angle]
-
-    init(data: [Double]) {
-        self.data = data
-        endAngles = PieChart.calculateEndAngles(from: data)
-    }
-
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        let radius = min(rect.width, rect.height) * 0.5
-
-        var startAngle = Angle(degrees: 0)
-        for index in data.indices {
-            path.addArc(center: center, radius: radius, startAngle: startAngle, endAngle: endAngles[index], clockwise: false)
-            startAngle = endAngles[index]
-        }
-
-        return path
-    }
-
-    private static func calculateEndAngles(from data: [Double]) -> [Angle] {
-        let total = data.reduce(0, +)
-        var endAngles: [Angle] = []
-        var currentEndAngle = Angle(degrees: 0)
-
-        for value in data {
-            let segment = value / total
-            currentEndAngle += Angle(degrees: 360 * segment)
-            endAngles.append(currentEndAngle)
-        }
-
-        return endAngles
+extension Color {
+    static var random: Color {
+        return Color(
+            red: Double.random(in: 0..<1),
+            green: Double.random(in: 0..<1),
+            blue: Double.random(in: 0..<1)
+        )
     }
 }
