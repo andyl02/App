@@ -1,12 +1,16 @@
-//  ContentView.swift
-
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel = ContentViewModel()
+
     var body: some View {
         NavigationView {
-            HomeView()
-                .environmentObject(ExpenseManager())
+            VStack {
+                Text("Slider Value: \(viewModel.sliderValue)")
+                UIKitSlider(value: $viewModel.sliderValue)
+                HomeView()
+                    .environmentObject(ExpenseManager())
+            }
         }
     }
 }
@@ -16,4 +20,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-

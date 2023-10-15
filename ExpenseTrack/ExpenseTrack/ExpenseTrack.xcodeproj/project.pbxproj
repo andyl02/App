@@ -14,6 +14,8 @@
 		998CCA2E2ADBB0340027BA0F /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998CCA2C2ADBB0340027BA0F /* Expense+CoreDataClass.swift */; };
 		998CCA2F2ADBB0340027BA0F /* Expense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998CCA2D2ADBB0340027BA0F /* Expense+CoreDataProperties.swift */; };
 		998CCA312ADBCAB20027BA0F /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998CCA302ADBCAB20027BA0F /* Budget.swift */; };
+		998CCA332ADBEC370027BA0F /* UIKitSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998CCA322ADBEC370027BA0F /* UIKitSlider.swift */; };
+		998CCA352ADBEC9B0027BA0F /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998CCA342ADBEC9B0027BA0F /* ContentViewModel.swift */; };
 		9992C7B12ADB4AAA00A73335 /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9992C7B02ADB4AAA00A73335 /* ReminderView.swift */; };
 		9992C7B62ADB56B900A73335 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9992C7B52ADB56B900A73335 /* CoreDataStack.swift */; };
 		99FBE2A42A9CADEB001F012E /* ExpenseTrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2A32A9CADEB001F012E /* ExpenseTrackApp.swift */; };
@@ -58,6 +60,8 @@
 		998CCA2C2ADBB0340027BA0F /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
 		998CCA2D2ADBB0340027BA0F /* Expense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		998CCA302ADBCAB20027BA0F /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
+		998CCA322ADBEC370027BA0F /* UIKitSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitSlider.swift; sourceTree = "<group>"; };
+		998CCA342ADBEC9B0027BA0F /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		9992C7B02ADB4AAA00A73335 /* ReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderView.swift; sourceTree = "<group>"; };
 		9992C7B52ADB56B900A73335 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		99FBE2A02A9CADEB001F012E /* ExpenseTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +139,8 @@
 				99FBE2A52A9CADEB001F012E /* ContentView.swift */,
 				99FBE2D52A9CB178001F012E /* HomeView.swift */,
 				99FBE2CD2A9CAEC8001F012E /* ExpenseEntryView.swift */,
+				998CCA322ADBEC370027BA0F /* UIKitSlider.swift */,
+				998CCA342ADBEC9B0027BA0F /* ContentViewModel.swift */,
 				99FBE2D72A9CB656001F012E /* ExpenseManager.swift */,
 				998CCA302ADBCAB20027BA0F /* Budget.swift */,
 				9992C7B52ADB56B900A73335 /* CoreDataStack.swift */,
@@ -313,10 +319,12 @@
 				991AA3172ADA9BA40012B075 /* DashboardView.swift in Sources */,
 				991AA3192ADAA6940012B075 /* PieChartView.swift in Sources */,
 				99FBE2D62A9CB178001F012E /* HomeView.swift in Sources */,
+				998CCA352ADBEC9B0027BA0F /* ContentViewModel.swift in Sources */,
 				991AA31B2ADACA900012B075 /* CategoryBudgetSettingView.swift in Sources */,
 				99FBE2D82A9CB656001F012E /* ExpenseManager.swift in Sources */,
 				99FBE2A62A9CADEB001F012E /* ContentView.swift in Sources */,
 				998CCA2F2ADBB0340027BA0F /* Expense+CoreDataProperties.swift in Sources */,
+				998CCA332ADBEC370027BA0F /* UIKitSlider.swift in Sources */,
 				99FBE2DA2A9CB790001F012E /* ExpenseRowView.swift in Sources */,
 				99FBE2D22A9CAEFA001F012E /* BudgetTrackingView.swift in Sources */,
 				998CCA2E2ADBB0340027BA0F /* Expense+CoreDataClass.swift in Sources */,
