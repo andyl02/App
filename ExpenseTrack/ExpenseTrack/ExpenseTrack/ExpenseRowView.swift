@@ -8,9 +8,9 @@ struct ExpenseRowView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(expense.category ?? "")
+                Text(expense.category)
                     .font(.headline)
-                Text("\(expense.date ?? Date(), formatter: DateFormatter())")
+                Text("\(expense.date, formatter: DateFormatter())")
                     .font(.subheadline)
             }
             
