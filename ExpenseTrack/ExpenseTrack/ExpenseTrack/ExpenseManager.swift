@@ -2,6 +2,7 @@ import SwiftUI
 import Combine
 import CoreData
 
+
 class ExpenseManager: ObservableObject {
     @Published var expenses: [Expense] = []
     @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities", "Rent", "Miscellaneous"]
@@ -11,21 +12,35 @@ class ExpenseManager: ObservableObject {
 
     init() {
         fetchExpenses()
+        fetchBudgets()
     }
 
     func fetchExpenses() {
-        let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest() 
+        let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest()
         do {
             expenses = try coreDataStack.context.fetch(fetchRequest)
         } catch let error as NSError {
-            // TODO: Handle this error more gracefully, perhaps show an alert to the user.
             print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+
+    func fetchBudgets() {
+        let fetchRequest: NSFetchRequest<Budget> = Budget.fetchRequest()
+        do {
+            let fetchedBudgets = try coreDataStack.context.fetch(fetchRequest)
+            for budget in fetchedBudgets {
+                if let category = budget.category {
+                    budgets[category!] = budget.amount
+                }
+            }
+        } catch let error as NSError {
+            print("Could not fetch budgets. \(error), \(error.userInfo)")
         }
     }
 
     func addExpense(_ expense: Expense) {
         expenses.append(expense)
-        coreDataStack.saveContext()
+        saveContext()
     }
 
     func deleteExpense(at offsets: IndexSet) {
@@ -33,12 +48,13 @@ class ExpenseManager: ObservableObject {
             let expense = expenses[index]
             coreDataStack.context.delete(expense)
         }
-        coreDataStack.saveContext()
+        saveContext()
         fetchExpenses()
     }
 
     func addCategory(_ category: String) {
         categories.append(category)
+        saveContext()
     }
 
     func deleteCategory(at offsets: IndexSet) {
@@ -46,12 +62,13 @@ class ExpenseManager: ObservableObject {
             let category = categories[index]
             categories.remove(at: index)
             budgets[category] = nil
-            // TODO: Decide what to do with expenses that were categorized under the deleted category.
         }
+        saveContext()
     }
 
     func setBudget(for category: String, amount: Double) {
         budgets[category] = amount
+        saveContext()
     }
 
     func getBudget(for category: String) -> Double {
@@ -75,4 +92,13 @@ class ExpenseManager: ObservableObject {
         }
         return data
     }
+
+    func saveContext() {
+        do {
+            try coreDataStack.context.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
 }
+

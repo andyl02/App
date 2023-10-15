@@ -5,6 +5,7 @@ import SwiftUI
 struct CategoryBudgetSettingView: View {
     @EnvironmentObject var expenseManager: ExpenseManager
     @State private var budgetInputs: [String: String] = [:]
+    @State private var showMessage: Bool = false
 
     var body: some View {
         NavigationView {
@@ -25,6 +26,9 @@ struct CategoryBudgetSettingView: View {
             .navigationBarItems(trailing: Button("Save") {
                 saveBudgets()
             })
+            .alert(isPresented: $showMessage) {
+                Alert(title: Text("Saved"), message: Text("Budgets have been successfully saved."), dismissButton: .default(Text("OK")))
+            }
         }
     }
 
@@ -34,5 +38,8 @@ struct CategoryBudgetSettingView: View {
                 expenseManager.setBudget(for: category, amount: amount)
             }
         }
+        expenseManager.saveContext()  // Save the updated budgets to Core Data
+        showMessage = true  // Show the success message
     }
 }
+

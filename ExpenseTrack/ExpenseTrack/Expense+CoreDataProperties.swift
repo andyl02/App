@@ -1,19 +1,13 @@
-//
 //  Expense+CoreDataProperties.swift
-//  ExpenseTrack
-//
-//  Created by Lili Duong on 15/10/2023.
-//
-//
 
 import Foundation
 import CoreData
 
 
-extension Expense {
+extension ExpenseTrack.Expense {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Expense> {
-        return NSFetchRequest<Expense>(entityName: "Expense")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<ExpenseTrack.Expense> {
+        return NSFetchRequest<ExpenseTrack.Expense>(entityName: "Expense")
     }
 
     @NSManaged public var amount: Double
@@ -23,6 +17,6 @@ extension Expense {
 
 }
 
-extension Expense : Identifiable {
+extension ExpenseTrack.Expense : Identifiable {
 
 }

@@ -46,3 +46,4 @@ struct ExpenseEntryView: View {
         }
     }
 }
+
