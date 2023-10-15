@@ -2,7 +2,6 @@ import SwiftUI
 import Combine
 import CoreData
 
-
 class ExpenseManager: ObservableObject {
     @Published var expenses: [Expense] = []
     @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities", "Rent", "Miscellaneous"]
@@ -30,7 +29,7 @@ class ExpenseManager: ObservableObject {
             let fetchedBudgets = try coreDataStack.context.fetch(fetchRequest)
             for budget in fetchedBudgets {
                 if let category = budget.category {
-                    budgets[category!] = budget.amount
+                    budgets[category] = budget.amount
                 }
             }
         } catch let error as NSError {
@@ -74,7 +73,7 @@ class ExpenseManager: ObservableObject {
     func getBudget(for category: String) -> Double {
         return budgets[category] ?? 0.0
     }
-    
+
     func totalForCategory(_ category: String) -> Double {
         return expenses.filter { $0.category == category }.reduce(0) { $0 + $1.amount }
     }

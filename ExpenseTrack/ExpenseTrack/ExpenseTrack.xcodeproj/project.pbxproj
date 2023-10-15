@@ -13,6 +13,7 @@
 		998CCA292ADB82DC0027BA0F /* ExpenseTrack.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 998CCA252ADB7D4E0027BA0F /* ExpenseTrack.xcdatamodeld */; };
 		998CCA2E2ADBB0340027BA0F /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998CCA2C2ADBB0340027BA0F /* Expense+CoreDataClass.swift */; };
 		998CCA2F2ADBB0340027BA0F /* Expense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998CCA2D2ADBB0340027BA0F /* Expense+CoreDataProperties.swift */; };
+		998CCA312ADBCAB20027BA0F /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998CCA302ADBCAB20027BA0F /* Budget.swift */; };
 		9992C7B12ADB4AAA00A73335 /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9992C7B02ADB4AAA00A73335 /* ReminderView.swift */; };
 		9992C7B62ADB56B900A73335 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9992C7B52ADB56B900A73335 /* CoreDataStack.swift */; };
 		99FBE2A42A9CADEB001F012E /* ExpenseTrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2A32A9CADEB001F012E /* ExpenseTrackApp.swift */; };
@@ -56,6 +57,7 @@
 		998CCA262ADB7D4E0027BA0F /* ExpenseTrack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExpenseTrack.xcdatamodel; sourceTree = "<group>"; };
 		998CCA2C2ADBB0340027BA0F /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
 		998CCA2D2ADBB0340027BA0F /* Expense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		998CCA302ADBCAB20027BA0F /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
 		9992C7B02ADB4AAA00A73335 /* ReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderView.swift; sourceTree = "<group>"; };
 		9992C7B52ADB56B900A73335 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		99FBE2A02A9CADEB001F012E /* ExpenseTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +136,7 @@
 				99FBE2D52A9CB178001F012E /* HomeView.swift */,
 				99FBE2CD2A9CAEC8001F012E /* ExpenseEntryView.swift */,
 				99FBE2D72A9CB656001F012E /* ExpenseManager.swift */,
+				998CCA302ADBCAB20027BA0F /* Budget.swift */,
 				9992C7B52ADB56B900A73335 /* CoreDataStack.swift */,
 				99FBE2D92A9CB790001F012E /* ExpenseRowView.swift */,
 				99FBE2DD2A9CB7D7001F012E /* SceneDelegate.swift */,
@@ -320,6 +323,7 @@
 				99FBE2DE2A9CB7D7001F012E /* SceneDelegate.swift in Sources */,
 				9992C7B12ADB4AAA00A73335 /* ReminderView.swift in Sources */,
 				9992C7B62ADB56B900A73335 /* CoreDataStack.swift in Sources */,
+				998CCA312ADBCAB20027BA0F /* Budget.swift in Sources */,
 				99FBE2CE2A9CAEC8001F012E /* ExpenseEntryView.swift in Sources */,
 				99FBE2D42A9CAF03001F012E /* ReportGenerationView.swift in Sources */,
 				99FBE2A42A9CADEB001F012E /* ExpenseTrackApp.swift in Sources */,

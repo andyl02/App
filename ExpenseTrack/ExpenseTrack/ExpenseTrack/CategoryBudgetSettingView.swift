@@ -1,5 +1,3 @@
-//  CategoryBudgetSettingView.swift
-
 import SwiftUI
 
 struct CategoryBudgetSettingView: View {
@@ -42,4 +40,3 @@ struct CategoryBudgetSettingView: View {
         showMessage = true  // Show the success message
     }
 }
-

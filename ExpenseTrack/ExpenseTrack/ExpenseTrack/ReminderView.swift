@@ -4,6 +4,7 @@ import UserNotifications
 struct ReminderView: View {
     @State private var date = Date()
     @State private var message = ""
+    @EnvironmentObject var expenseManager: ExpenseManager  // <-- Added this line
     
     var body: some View {
         VStack(spacing: 20) {
@@ -40,4 +41,3 @@ struct ReminderView: View {
         center.add(request)
     }
 }
-

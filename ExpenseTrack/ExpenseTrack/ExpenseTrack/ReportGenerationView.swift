@@ -1,5 +1,3 @@
-// ReportGenerationView.swift
-
 import SwiftUI
 
 struct ReportGenerationView: View {
@@ -63,4 +61,3 @@ struct ReportGenerationView_Previews: PreviewProvider {
         ReportGenerationView().environmentObject(ExpenseManager())
     }
 }
-

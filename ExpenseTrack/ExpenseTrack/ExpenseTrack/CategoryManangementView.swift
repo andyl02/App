@@ -1,3 +1,5 @@
+// CategoryManagementView.swift
+
 import SwiftUI
 
 struct CategoryManagementView: View {
