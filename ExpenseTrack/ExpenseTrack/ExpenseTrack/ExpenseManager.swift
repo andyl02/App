@@ -14,7 +14,7 @@ class ExpenseManager: ObservableObject {
     }
 
     func fetchExpenses() {
-        let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest() as! NSFetchRequest<Expense>
+        let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest() 
         do {
             expenses = try coreDataStack.context.fetch(fetchRequest)
         } catch let error as NSError {
@@ -76,4 +76,3 @@ class ExpenseManager: ObservableObject {
         return data
     }
 }
-
