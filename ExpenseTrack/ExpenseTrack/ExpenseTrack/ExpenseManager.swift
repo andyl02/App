@@ -18,6 +18,7 @@ class ExpenseManager: ObservableObject {
         do {
             expenses = try coreDataStack.context.fetch(fetchRequest)
         } catch let error as NSError {
+            // TODO: Handle this error more gracefully, perhaps show an alert to the user.
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
@@ -45,6 +46,7 @@ class ExpenseManager: ObservableObject {
             let category = categories[index]
             categories.remove(at: index)
             budgets[category] = nil
+            // TODO: Decide what to do with expenses that were categorized under the deleted category.
         }
     }
 
@@ -74,3 +76,4 @@ class ExpenseManager: ObservableObject {
         return data
     }
 }
+
