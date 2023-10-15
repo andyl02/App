@@ -10,7 +10,7 @@
 		991AA3172ADA9BA40012B075 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AA3162ADA9BA40012B075 /* DashboardView.swift */; };
 		991AA3192ADAA6940012B075 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AA3182ADAA6940012B075 /* PieChartView.swift */; };
 		991AA31B2ADACA900012B075 /* CategoryBudgetSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991AA31A2ADACA900012B075 /* CategoryBudgetSettingView.swift */; };
-		998CCA272ADB7D4E0027BA0F /* ExpenseTrack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 998CCA252ADB7D4E0027BA0F /* ExpenseTrack.xcdatamodeld */; };
+		998CCA292ADB82DC0027BA0F /* ExpenseTrack.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 998CCA252ADB7D4E0027BA0F /* ExpenseTrack.xcdatamodeld */; };
 		9992C7B12ADB4AAA00A73335 /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9992C7B02ADB4AAA00A73335 /* ReminderView.swift */; };
 		9992C7B62ADB56B900A73335 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9992C7B52ADB56B900A73335 /* CoreDataStack.swift */; };
 		99FBE2A42A9CADEB001F012E /* ExpenseTrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2A32A9CADEB001F012E /* ExpenseTrackApp.swift */; };
@@ -236,7 +236,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					99FBE29F2A9CADEB001F012E = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -276,6 +276,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				998CCA292ADB82DC0027BA0F /* ExpenseTrack.xcdatamodeld in Resources */,
 				99FBE2AB2A9CADED001F012E /* Preview Assets.xcassets in Resources */,
 				99FBE2A82A9CADED001F012E /* Assets.xcassets in Resources */,
 			);
@@ -317,7 +318,6 @@
 				9992C7B62ADB56B900A73335 /* CoreDataStack.swift in Sources */,
 				99FBE2CE2A9CAEC8001F012E /* ExpenseEntryView.swift in Sources */,
 				99FBE2D42A9CAF03001F012E /* ReportGenerationView.swift in Sources */,
-				998CCA272ADB7D4E0027BA0F /* ExpenseTrack.xcdatamodeld in Sources */,
 				99FBE2A42A9CADEB001F012E /* ExpenseTrackApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,6 +391,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -451,6 +452,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
