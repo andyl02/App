@@ -7,14 +7,14 @@ class ExpenseManager: ObservableObject {
     @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities", "Rent", "Miscellaneous"]
     @Published var budgets: [String: Double] = [:]
 
-    private var coreDataStack = CoreDataStack.shared
+    var coreDataStack = CoreDataStack.shared
 
     init() {
         fetchExpenses()
     }
 
     func fetchExpenses() {
-        let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest()
+        let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest() as! NSFetchRequest<Expense>
         do {
             expenses = try coreDataStack.context.fetch(fetchRequest)
         } catch let error as NSError {
@@ -64,5 +64,13 @@ class ExpenseManager: ObservableObject {
         let totalExpensesForCategory = expenses.filter { $0.category == category }.map { $0.amount }.reduce(0, +)
         let budgetForCategory = getBudget(for: category)
         return budgetForCategory - totalExpensesForCategory
+    }
+
+    var expensesByCategory: [String: Double] {
+        var data: [String: Double] = [:]
+        for category in categories {
+            data[category] = totalForCategory(category)
+        }
+        return data
     }
 }

@@ -34,7 +34,11 @@ struct ExpenseEntryView: View {
     private func addExpense() {
         if let amountDouble = Double(amount), !category.isEmpty {
             let formattedAmount = Double(String(format: "%.2f", amountDouble))!
-            let expense = Expense(category: category, amount: formattedAmount, date: date)
+            let expense = Expense(context: expenseManager.coreDataStack.context)
+            expense.category = category
+            expense.amount = formattedAmount
+            expense.date = date
+            expense.id = UUID()
             expenseManager.addExpense(expense)
             amount = ""
             category = ""

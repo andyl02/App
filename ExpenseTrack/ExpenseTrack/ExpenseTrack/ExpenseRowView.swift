@@ -8,15 +8,15 @@ struct ExpenseRowView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(expense.category)
+                Text(expense.category ?? "")
                     .font(.headline)
-                Text(expense.date, style: .date)
+                Text("\(expense.date ?? Date(), formatter: DateFormatter())")
                     .font(.subheadline)
             }
             
             Spacer()
             
-            Text("\(expense.amount, specifier: "%.2f")")
+            Text("$\(expense.amount, specifier: "%.2f")")
                 .font(.headline)
         }
     }
@@ -24,6 +24,6 @@ struct ExpenseRowView: View {
 
 struct ExpenseRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ExpenseRowView(expense: Expense(category: "Food", amount: 20.0, date: Date()))
+        ExpenseRowView(expense: Expense())
     }
 }
