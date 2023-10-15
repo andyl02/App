@@ -27,7 +27,6 @@ struct ReportGenerationView: View {
                     .fontWeight(.bold)
                     .padding(.vertical, 10)
                 ForEach(self.expenseManager.categories, id: \.self) { category in
-                    // Assuming you have a function totalForCategory in ExpenseManager
                     let total = self.expenseManager.totalForCategory(category)
                     Text("\(category): $\(total, specifier: "%.2f")")
                 }
@@ -38,7 +37,9 @@ struct ReportGenerationView: View {
                     .fontWeight(.bold)
                     .padding(.vertical, 10)
                 ForEach(self.expenseManager.expenses.prefix(5)) { expense in
-                    Text("\(expense.date, formatter: DateFormatter.shortDate): \(expense.category) - $\(expense.amount, specifier: "%.2f")")
+                    let formattedDate = expense.date != nil ? DateFormatter.shortDate.string(from: expense.date!) : "Unknown Date"
+                    let category = expense.category ?? "Unknown Category"
+                    Text("\(formattedDate): \(category) - $\(String(format: "%.2f", expense.amount))")
                 }
                 .padding(.bottom, 20)
 
@@ -62,3 +63,4 @@ struct ReportGenerationView_Previews: PreviewProvider {
         ReportGenerationView().environmentObject(ExpenseManager())
     }
 }
+

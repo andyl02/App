@@ -29,7 +29,6 @@
 		99FBE2D62A9CB178001F012E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2D52A9CB178001F012E /* HomeView.swift */; };
 		99FBE2D82A9CB656001F012E /* ExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2D72A9CB656001F012E /* ExpenseManager.swift */; };
 		99FBE2DA2A9CB790001F012E /* ExpenseRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2D92A9CB790001F012E /* ExpenseRowView.swift */; };
-		99FBE2DC2A9CB794001F012E /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2DB2A9CB794001F012E /* Expense.swift */; };
 		99FBE2DE2A9CB7D7001F012E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2DD2A9CB7D7001F012E /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +75,6 @@
 		99FBE2D52A9CB178001F012E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		99FBE2D72A9CB656001F012E /* ExpenseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseManager.swift; sourceTree = "<group>"; };
 		99FBE2D92A9CB790001F012E /* ExpenseRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseRowView.swift; sourceTree = "<group>"; };
-		99FBE2DB2A9CB794001F012E /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		99FBE2DD2A9CB7D7001F012E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,7 +136,6 @@
 				99FBE2D72A9CB656001F012E /* ExpenseManager.swift */,
 				9992C7B52ADB56B900A73335 /* CoreDataStack.swift */,
 				99FBE2D92A9CB790001F012E /* ExpenseRowView.swift */,
-				99FBE2DB2A9CB794001F012E /* Expense.swift */,
 				99FBE2DD2A9CB7D7001F012E /* SceneDelegate.swift */,
 				99FBE2CF2A9CAEE3001F012E /* CategoryManangementView.swift */,
 				9992C7B02ADB4AAA00A73335 /* ReminderView.swift */,
@@ -316,7 +313,6 @@
 				991AA31B2ADACA900012B075 /* CategoryBudgetSettingView.swift in Sources */,
 				99FBE2D82A9CB656001F012E /* ExpenseManager.swift in Sources */,
 				99FBE2A62A9CADEB001F012E /* ContentView.swift in Sources */,
-				99FBE2DC2A9CB794001F012E /* Expense.swift in Sources */,
 				998CCA2F2ADBB0340027BA0F /* Expense+CoreDataProperties.swift in Sources */,
 				99FBE2DA2A9CB790001F012E /* ExpenseRowView.swift in Sources */,
 				99FBE2D22A9CAEFA001F012E /* BudgetTrackingView.swift in Sources */,

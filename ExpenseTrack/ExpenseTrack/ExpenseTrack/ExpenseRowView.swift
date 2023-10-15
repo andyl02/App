@@ -8,9 +8,9 @@ struct ExpenseRowView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(expense.category)
+                Text(expense.category ?? "Unknown Category")
                     .font(.headline)
-                Text("\(expense.date, formatter: DateFormatter())")
+                Text(expense.date != nil ? DateFormatter.shortDate.string(from: expense.date!) : "Unknown Date")
                     .font(.subheadline)
             }
             
@@ -27,3 +27,4 @@ struct ExpenseRowView_Previews: PreviewProvider {
         ExpenseRowView(expense: Expense())
     }
 }
+
