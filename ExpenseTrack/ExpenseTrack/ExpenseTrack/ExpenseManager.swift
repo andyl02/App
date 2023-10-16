@@ -2,6 +2,12 @@ import SwiftUI
 import Combine
 import CoreData
 
+// New struct for decoding JSON data
+struct APIExpense: Decodable {
+    let amount: Double
+    let category: String
+}
+
 class ExpenseManager: ObservableObject {
     @Published var expenses: [Expense] = []
     @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities", "Rent", "Miscellaneous"]
@@ -12,8 +18,10 @@ class ExpenseManager: ObservableObject {
     init() {
         fetchExpenses()
         fetchBudgets()
+        fetchDataFromAPI()
     }
 
+    // functions for fetching expenses and budgets
     func fetchExpenses() {
         let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest()
         do {
@@ -84,14 +92,6 @@ class ExpenseManager: ObservableObject {
         return budgetForCategory - totalExpensesForCategory
     }
 
-    var expensesByCategory: [String: Double] {
-        var data: [String: Double] = [:]
-        for category in categories {
-            data[category] = totalForCategory(category)
-        }
-        return data
-    }
-
     func saveContext() {
         do {
             try coreDataStack.context.save()
@@ -99,5 +99,20 @@ class ExpenseManager: ObservableObject {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-}
 
+    // function to fetch data from API
+    func fetchDataFromAPI() {
+        NetworkManager.shared.fetchJSONData(url: "https://api.example.com/data") { (decodedData: [APIExpense]?, error) in
+            if let decodedData = decodedData {
+                for apiExpense in decodedData {
+                    let newExpense = Expense(context: self.coreDataStack.context)
+                    newExpense.amount = apiExpense.amount
+                    newExpense.category = apiExpense.category
+                    self.addExpense(newExpense)
+                }
+            } else if let error = error {
+                print("Error fetching data: \(error)")
+            }
+        }
+    }
+}

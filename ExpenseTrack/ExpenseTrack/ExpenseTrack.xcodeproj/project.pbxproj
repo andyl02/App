@@ -28,6 +28,7 @@
 		998CCA4E2ADBED5F0027BA0F /* ExpenseSummaryWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 998CCA3A2ADBED5D0027BA0F /* ExpenseSummaryWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9992C7B12ADB4AAA00A73335 /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9992C7B02ADB4AAA00A73335 /* ReminderView.swift */; };
 		9992C7B62ADB56B900A73335 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9992C7B52ADB56B900A73335 /* CoreDataStack.swift */; };
+		99EB92482ADD1F1F0068F638 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EB92472ADD1F1F0068F638 /* NetworkManager.swift */; };
 		99FBE2A42A9CADEB001F012E /* ExpenseTrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2A32A9CADEB001F012E /* ExpenseTrackApp.swift */; };
 		99FBE2A62A9CADEB001F012E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FBE2A52A9CADEB001F012E /* ContentView.swift */; };
 		99FBE2A82A9CADED001F012E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99FBE2A72A9CADED001F012E /* Assets.xcassets */; };
@@ -106,6 +107,7 @@
 		998CCA4B2ADBED5F0027BA0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9992C7B02ADB4AAA00A73335 /* ReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderView.swift; sourceTree = "<group>"; };
 		9992C7B52ADB56B900A73335 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		99EB92472ADD1F1F0068F638 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		99FBE2A02A9CADEB001F012E /* ExpenseTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99FBE2A32A9CADEB001F012E /* ExpenseTrackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTrackApp.swift; sourceTree = "<group>"; };
 		99FBE2A52A9CADEB001F012E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -169,17 +171,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		998CCA402ADBED5D0027BA0F /* Widget */ = {
+		998CCA402ADBED5D0027BA0F /* ExpenseSummaryWidget */ = {
 			isa = PBXGroup;
 			children = (
+				998CCA4B2ADBED5F0027BA0F /* Info.plist */,
 				998CCA412ADBED5D0027BA0F /* ExpenseSummaryWidgetBundle.swift */,
 				998CCA432ADBED5D0027BA0F /* ExpenseSummaryWidgetLiveActivity.swift */,
 				998CCA452ADBED5D0027BA0F /* ExpenseSummaryWidget.swift */,
 				998CCA472ADBED5D0027BA0F /* AppIntent.swift */,
 				998CCA492ADBED5F0027BA0F /* Assets.xcassets */,
-				998CCA4B2ADBED5F0027BA0F /* Info.plist */,
 			);
-			path = Widget;
+			path = ExpenseSummaryWidget;
 			sourceTree = "<group>";
 		};
 		99EB92442ADD198E0068F638 /* Model */ = {
@@ -227,7 +229,7 @@
 				99FBE2A22A9CADEB001F012E /* ExpenseTrack */,
 				99FBE2B32A9CADED001F012E /* Unit Test */,
 				99FBE2BD2A9CADED001F012E /* ExpenseTrackUITests */,
-				998CCA402ADBED5D0027BA0F /* Widget */,
+				998CCA402ADBED5D0027BA0F /* ExpenseSummaryWidget */,
 				998CCA3B2ADBED5D0027BA0F /* Frameworks */,
 				99FBE2A12A9CADEB001F012E /* Products */,
 			);
@@ -252,6 +254,7 @@
 				99EB92462ADD1A270068F638 /* ViewModel */,
 				99FBE2D72A9CB656001F012E /* ExpenseManager.swift */,
 				99FBE2DD2A9CB7D7001F012E /* SceneDelegate.swift */,
+				99EB92472ADD1F1F0068F638 /* NetworkManager.swift */,
 				998CCA322ADBEC370027BA0F /* UIKitSlider.swift */,
 				996DE0D02ADC02F70049812C /* ExpenseCategoryPredictor.mlmodel */,
 				996DE0D22ADC03650049812C /* TextClassifier.swift */,
@@ -459,6 +462,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99EB92482ADD1F1F0068F638 /* NetworkManager.swift in Sources */,
 				99FBE2D02A9CAEE3001F012E /* CategoryManangementView.swift in Sources */,
 				991AA3172ADA9BA40012B075 /* DashboardView.swift in Sources */,
 				991AA3192ADAA6940012B075 /* PieChartView.swift in Sources */,
