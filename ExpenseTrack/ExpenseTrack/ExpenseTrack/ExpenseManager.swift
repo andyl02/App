@@ -12,6 +12,7 @@ class ExpenseManager: ObservableObject {
     @Published var expenses: [Expense] = []
     @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities", "Rent", "Miscellaneous"]
     @Published var budgets: [String: Double] = [:]
+    @Published var expensesByCategory: [String: Double] = [:]
 
     var coreDataStack = CoreDataStack.shared
 
@@ -21,7 +22,6 @@ class ExpenseManager: ObservableObject {
         fetchDataFromAPI()
     }
 
-    // functions for fetching expenses and budgets
     func fetchExpenses() {
         let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest()
         do {
@@ -100,15 +100,11 @@ class ExpenseManager: ObservableObject {
         }
     }
 
-    // function to fetch data from API
+    // Networking code to fetch data from API
     func fetchDataFromAPI() {
         NetworkManager.shared.fetchJSONData(url: "https://api.example.com/data") { (decodedData: [APIExpense]?, error) in
             if let decodedData = decodedData {
-                for apiExpense in decodedData {
-                    let newExpense = Expense(context: self.coreDataStack.context)
-                    newExpense.amount = apiExpense.amount
-                    newExpense.category = apiExpense.category
-                    self.addExpense(newExpense)
+                for _ in decodedData {
                 }
             } else if let error = error {
                 print("Error fetching data: \(error)")

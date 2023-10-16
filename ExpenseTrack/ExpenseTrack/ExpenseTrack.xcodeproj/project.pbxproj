@@ -108,6 +108,8 @@
 		9992C7B02ADB4AAA00A73335 /* ReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderView.swift; sourceTree = "<group>"; };
 		9992C7B52ADB56B900A73335 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		99EB92472ADD1F1F0068F638 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		99EB92492ADD27DD0068F638 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ExpenseTrack/Assets.xcassets; sourceTree = "<group>"; };
+		99EB924A2ADD2A910068F638 /* ExpenseTrack.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ExpenseTrack.xctestplan; sourceTree = "<group>"; };
 		99FBE2A02A9CADEB001F012E /* ExpenseTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99FBE2A32A9CADEB001F012E /* ExpenseTrackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTrackApp.swift; sourceTree = "<group>"; };
 		99FBE2A52A9CADEB001F012E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -225,6 +227,8 @@
 		99FBE2972A9CADEB001F012E = {
 			isa = PBXGroup;
 			children = (
+				99EB924A2ADD2A910068F638 /* ExpenseTrack.xctestplan */,
+				99EB92492ADD27DD0068F638 /* Assets.xcassets */,
 				998CCA252ADB7D4E0027BA0F /* ExpenseTrack.xcdatamodeld */,
 				99FBE2A22A9CADEB001F012E /* ExpenseTrack */,
 				99FBE2B32A9CADED001F012E /* Unit Test */,
