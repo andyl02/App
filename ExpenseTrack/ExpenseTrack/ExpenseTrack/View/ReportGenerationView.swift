@@ -1,8 +1,13 @@
 import SwiftUI
 
+/// `ReportGenerationView` is a SwiftUI view for generating an expense report.
+///
+/// This view displays a summary of the user's expenses, including the total expenses, average expense, expenses by category, and recent expenses.
 struct ReportGenerationView: View {
+    /// The environment object that manages the expenses.
     @EnvironmentObject var expenseManager: ExpenseManager
 
+    /// The body of the `ReportGenerationView`.
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -48,6 +53,7 @@ struct ReportGenerationView: View {
     }
 }
 
+/// `DateFormatter` extension that provides a short date formatter.
 extension DateFormatter {
     static var shortDate: DateFormatter {
         let formatter = DateFormatter()
@@ -56,6 +62,9 @@ extension DateFormatter {
     }
 }
 
+/// `ReportGenerationView_Previews` is a SwiftUI preview provider for the `ReportGenerationView`.
+///
+/// This struct generates a preview of the `ReportGenerationView`.
 struct ReportGenerationView_Previews: PreviewProvider {
     static var previews: some View {
         ReportGenerationView().environmentObject(ExpenseManager())

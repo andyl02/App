@@ -1,11 +1,16 @@
-//  ComplexGestureView.swift
-
 import SwiftUI
 
+/// `ComplexGestureView` is a SwiftUI view that responds to complex gestures.
+///
+/// This view displays a rectangle that can be dragged and rotated using simultaneous gestures.
 struct ComplexGestureView: View {
+    /// The current offset of the rectangle from its original position.
     @State private var offset = CGSize.zero
+    
+    /// The current rotation of the rectangle.
     @State private var rotation: Angle = .zero
     
+    /// The body of the `ComplexGestureView`.
     var body: some View {
         Rectangle()
             .fill(Color.blue)
@@ -26,3 +31,4 @@ struct ComplexGestureView: View {
             )
     }
 }
+

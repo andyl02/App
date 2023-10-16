@@ -1,8 +1,15 @@
 import SwiftUI
 
+/// `DashboardView` is a SwiftUI view that displays a dashboard of the user's expenses.
+///
+/// This view displays a pie chart that shows the user's expenses by category. It also includes a button that navigates to the `ExpenseEntryView` for adding new expenses.
+///
+/// - Requires: `ExpenseManager` environment object.
 struct DashboardView: View {
+    /// An environment object that manages the user's expenses.
     @EnvironmentObject var expenseManager: ExpenseManager
-    
+
+    /// The body of the `DashboardView`.
     var body: some View {
         NavigationView {
             ScrollView {

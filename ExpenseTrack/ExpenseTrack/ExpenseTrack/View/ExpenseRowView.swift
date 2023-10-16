@@ -1,10 +1,12 @@
-// ExpenseRowView.swift
-
 import SwiftUI
 
+/// Represents a row view for displaying an expense.
 struct ExpenseRowView: View {
+    
+    /// The expense to display.
     var expense: Expense
     
+    /// The body of the expense row view.
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -22,9 +24,11 @@ struct ExpenseRowView: View {
     }
 }
 
+/// Provides a preview of the expense row view.
 struct ExpenseRowView_Previews: PreviewProvider {
+    
+    /// Generates a preview of the expense row view.
     static var previews: some View {
         ExpenseRowView(expense: Expense())
     }
 }
-

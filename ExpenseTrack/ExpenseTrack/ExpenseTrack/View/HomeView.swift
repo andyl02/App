@@ -1,14 +1,21 @@
-// HomeView.swift
-
 import SwiftUI
 import UserNotifications
 
+/// `HomeView` is the main SwiftUI view of the ExpenseTrack application.
+///
+/// This view displays a list of navigation links to various features of the application, such as adding an expense, managing categories, tracking budget, generating reports, viewing the dashboard, setting category budgets, and setting a reminder.
+///
+/// It also includes a button for setting a reminder, which triggers a notification alert.
 struct HomeView: View {
+    
+    /// A state variable that controls the display of the notification alert.
     @State private var showNotificationAlert = false
 
+    /// The body of the `HomeView`.
     var body: some View {
         NavigationView {
             List {
+                // Various navigation links and buttons for different features.
                 NavigationLink(destination: ExpenseEntryView()) {
                     HStack {
                         Image(systemName: "plus.circle.fill")
@@ -68,6 +75,9 @@ struct HomeView: View {
         }
     }
 
+    /// Sets a notification reminder.
+    ///
+    /// This function requests authorization for notifications. If granted, it sets a repeating notification that triggers every day at 10 AM and displays a message reminding the user to check their expenses. After the notification is set, it displays an alert confirming that the reminder has been set.
     func setNotification() {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in

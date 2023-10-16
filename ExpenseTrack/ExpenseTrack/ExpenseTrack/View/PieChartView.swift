@@ -1,11 +1,22 @@
 import SwiftUI
 
+/// `PieChartSegment` is a SwiftUI view that represents a segment of a pie chart.
+///
+/// This view displays a pie chart segment with a specific start angle, end angle, and color. It also includes a label that shows the percentage of the total that the segment represents.
 struct PieChartSegment: View {
+    /// The start angle of the pie chart segment.
     var startAngle: Angle
+    
+    /// The end angle of the pie chart segment.
     var endAngle: Angle
+    
+    /// The color of the pie chart segment.
     var color: Color
+    
+    /// The percentage of the total that the pie chart segment represents.
     var percentage: Double
     
+    /// The body of the `PieChartSegment`.
     var body: some View {
         GeometryReader { geometry in
             let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
@@ -30,16 +41,24 @@ struct PieChartSegment: View {
     }
 }
 
+/// `PieChartView` is a SwiftUI view that displays a pie chart.
+///
+/// This view displays a pie chart that shows the distribution of a set of data. It also includes a legend that lists the keys and values of the data.
 struct PieChartView: View {
+    /// The data to be displayed in the pie chart.
     var data: [String: Double]
+    
+    /// The total of all the values in the data.
     private var total: Double {
         data.values.reduce(0, +)
     }
     
+    /// Calculates the end angle for a given value.
     private func endAngle(for value: Double) -> Angle {
         .degrees(360 * (value / total))
     }
     
+    /// The body of the `PieChartView`.
     var body: some View {
         VStack {
             GeometryReader { geometry in
@@ -80,6 +99,7 @@ struct PieChartView: View {
     }
 }
 
+/// An extension to the `Color` struct that adds a static property for generating a random color.
 extension Color {
     static var random: Color {
         return Color(

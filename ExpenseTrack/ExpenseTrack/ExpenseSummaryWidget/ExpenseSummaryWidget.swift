@@ -1,11 +1,17 @@
 import WidgetKit
 import SwiftUI
 
+/// A struct that represents an entry in the timeline of the `ExpenseSummaryWidget`.
+///
+/// `ExpenseEntry` includes properties `date` and `monthlyExpense` that represent the date of the entry and the monthly expense, respectively.
 struct ExpenseEntry: TimelineEntry {
     let date: Date
     let monthlyExpense: Double
 }
 
+/// A provider that provides a timeline of entries for the `ExpenseSummaryWidget`.
+///
+/// `ExpenseSummaryProvider` includes methods for providing a placeholder entry, a snapshot of the current timeline, and a timeline of entries.
 struct ExpenseSummaryProvider: TimelineProvider {
     func placeholder(in context: Context) -> ExpenseEntry {
         ExpenseEntry(date: Date(), monthlyExpense: 0.0)
@@ -23,6 +29,9 @@ struct ExpenseSummaryProvider: TimelineProvider {
     }
 }
 
+/// A view that represents an entry in the timeline of the `ExpenseSummaryWidget`.
+///
+/// `ExpenseSummaryWidgetEntryView` includes the user interface for the widget and the logic for handling different widget families.
 struct ExpenseSummaryWidgetEntryView: View {
     var entry: ExpenseSummaryProvider.Entry
     @Environment(\.widgetFamily) var family
@@ -65,6 +74,11 @@ struct ExpenseSummaryWidgetEntryView: View {
     }
 }
 
+/// A widget that represents the `ExpenseSummaryWidget`.
+///
+/// `ExpenseSummaryWidget` includes the user interface for the widget and the logic for handling different widget families.
+///
+/// - Tag: ExpenseSummaryWidget
 @main
 struct ExpenseSummaryWidget: Widget {
     let kind: String = "ExpenseSummaryWidget"
@@ -78,9 +92,13 @@ struct ExpenseSummaryWidget: Widget {
     }
 }
 
+/// A preview provider for the `ExpenseSummaryWidget`.
+///
+/// `ExpenseSummaryWidget_Previews` generates a preview of the `ExpenseSummaryWidget`.
 struct ExpenseSummaryWidget_Previews: PreviewProvider {
     static var previews: some View {
         ExpenseSummaryWidgetEntryView(entry: ExpenseEntry(date: Date(), monthlyExpense: 500.0))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
+

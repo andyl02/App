@@ -1,12 +1,17 @@
-// CoreDataStack.swift
-
 import CoreData
 
+/// A class that manages the Core Data stack for the application.
+///
+/// `CoreDataStack` is a singleton that manages the Core Data stack for the application. It provides a persistent container for Core Data, a managed object context associated with the persistent container, and methods to save changes to the context and perform CRUD operations on expenses.
 class CoreDataStack {
+    
+    /// Singleton instance of `CoreDataStack`.
     static let shared = CoreDataStack()
-
-    private init() {}  // This prevents others from using the default '()' initializer
-
+    
+    /// Private initializer to enforce singleton pattern.
+    private init() {}
+    
+    /// The persistent container for Core Data.
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ExpenseTrack")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -17,11 +22,13 @@ class CoreDataStack {
         })
         return container
     }()
-
+    
+    /// The managed object context associated with the persistent container.
     var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
-
+    
+    /// Saves any changes to the managed object context.
     func saveContext() {
         if context.hasChanges {
             do {
@@ -42,7 +49,11 @@ class CoreDataStack {
     }
     
     // MARK: - CRUD Operations
-    // Create
+    
+    /// Adds a new expense to the Core Data store.
+    /// - Parameters:
+    ///   - amount: The amount of the expense.
+    ///   - category: The category of the expense.
     func addExpense(amount: Double, category: String) {
         let expense = Expense(context: context)
         expense.amount = amount
@@ -50,7 +61,8 @@ class CoreDataStack {
         saveContext()
     }
     
-    // Read
+    /// Fetches all expenses from the Core Data store.
+    /// - Returns: An array of `Expense` objects.
     func fetchExpenses() -> [Expense] {
         let fetchRequest = NSFetchRequest<Expense>(entityName: "Expense")
         
@@ -63,17 +75,21 @@ class CoreDataStack {
         }
     }
     
-    // Update
+    /// Updates an existing expense in the Core Data store.
+    /// - Parameters:
+    ///   - expense: The `Expense` object to update.
+    ///   - newAmount: The new amount for the expense.
+    ///   - newCategory: The new category for the expense.
     func updateExpense(expense: Expense, newAmount: Double, newCategory: String) {
         expense.amount = newAmount
         expense.category = newCategory
         saveContext()
     }
     
-    // Delete
+    /// Deletes an expense from the Core Data store.
+    /// - Parameter expense: The `Expense` object to delete.
     func deleteExpense(expense: Expense) {
         context.delete(expense)
         saveContext()
     }
 }
-

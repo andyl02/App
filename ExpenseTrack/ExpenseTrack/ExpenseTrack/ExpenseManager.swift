@@ -2,7 +2,9 @@ import SwiftUI
 import Combine
 import CoreData
 
-/// struct for decoding JSON data
+/// `ExpenseManager` is a class that manages all expense-related operations.
+///
+/// This class provides published properties for expenses, categories, budgets, and expenses by category. It also provides methods for fetching expenses and budgets from Core Data, adding and deleting expenses and categories, setting and getting budgets for categories, calculating total expenses for a category, calculating the remaining budget for a category, saving the Core Data context, and fetching data from an API.
 struct APIExpense: Decodable {
     let amount: Double
     let category: String

@@ -1,11 +1,20 @@
 import SwiftUI
 import UserNotifications
 
+/// `ReminderView` is a SwiftUI view for setting a reminder.
+///
+/// This view displays a form that allows the user to select a date and time and input a message for a reminder. It also includes a button for setting the reminder, which schedules a notification.
 struct ReminderView: View {
+    /// The date and time of the reminder that the user is currently selecting.
     @State private var date = Date()
-    @State private var message = ""
-    @EnvironmentObject var expenseManager: ExpenseManager  // <-- Added this line
     
+    /// The message of the reminder that the user is currently inputting.
+    @State private var message = ""
+    
+    /// The environment object that manages the expenses.
+    @EnvironmentObject var expenseManager: ExpenseManager
+    
+    /// The body of the `ReminderView`.
     var body: some View {
         VStack(spacing: 20) {
             DatePicker("Select Date and Time", selection: $date, displayedComponents: [.date, .hourAndMinute])
@@ -25,6 +34,9 @@ struct ReminderView: View {
         .padding()
     }
     
+    /// Schedules a notification for the reminder.
+    ///
+    /// This function requests authorization for notifications. If granted, it schedules a notification that triggers at the date and time selected by the user and displays the message input by the user.
     func scheduleNotification() {
         let center = UNUserNotificationCenter.current()
         
