@@ -2,14 +2,19 @@
 
 import Foundation
 
+/// Manages network requests for the application.
 class NetworkManager {
     
-    // Singleton instance
+    /// Singleton instance of `NetworkManager`.
     static let shared = NetworkManager()
     
+    /// Private initializer to enforce singleton pattern.
     private init() {}
     
-    // Fetch data from a REST API
+    /// Fetches data from a REST API.
+    /// - Parameters:
+    ///   - url: The URL to fetch data from.
+    ///   - completion: The completion handler to call when the request is complete.
     func fetchData(url: String, completion: @escaping (Data?, Error?) -> Void) {
         guard let url = URL(string: url) else {
             completion(nil, NSError(domain: "Invalid URL", code: 400, userInfo: nil))
@@ -21,7 +26,10 @@ class NetworkManager {
         }.resume()
     }
     
-    // Example usage with JSON decoding
+    /// Fetches JSON data from a REST API.
+    /// - Parameters:
+    ///   - url: The URL to fetch data from.
+    ///   - completion: The completion handler to call when the request is complete.
     func fetchJSONData<T: Decodable>(url: String, completion: @escaping (T?, Error?) -> Void) {
         fetchData(url: url) { (data, error) in
             if let data = data {
