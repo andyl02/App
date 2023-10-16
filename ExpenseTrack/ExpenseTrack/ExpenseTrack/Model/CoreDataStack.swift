@@ -1,3 +1,5 @@
+// CoreDataStack.swift
+
 import CoreData
 
 class CoreDataStack {
@@ -37,6 +39,41 @@ class CoreDataStack {
                 print("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    // MARK: - CRUD Operations
+    // Create
+    func addExpense(amount: Double, category: String) {
+        let expense = Expense(context: context)
+        expense.amount = amount
+        expense.category = category
+        saveContext()
+    }
+    
+    // Read
+    func fetchExpenses() -> [Expense] {
+        let fetchRequest = NSFetchRequest<Expense>(entityName: "Expense")
+        
+        do {
+            let expenses = try context.fetch(fetchRequest)
+            return expenses
+        } catch {
+            print("Failed to fetch expenses: \(error)")
+            return []
+        }
+    }
+    
+    // Update
+    func updateExpense(expense: Expense, newAmount: Double, newCategory: String) {
+        expense.amount = newAmount
+        expense.category = newCategory
+        saveContext()
+    }
+    
+    // Delete
+    func deleteExpense(expense: Expense) {
+        context.delete(expense)
+        saveContext()
     }
 }
 
