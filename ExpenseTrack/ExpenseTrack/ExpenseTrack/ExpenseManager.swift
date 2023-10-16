@@ -2,26 +2,36 @@ import SwiftUI
 import Combine
 import CoreData
 
-// New struct for decoding JSON data
+/// struct for decoding JSON data
 struct APIExpense: Decodable {
     let amount: Double
     let category: String
 }
-
+/// Manages all expense-related operations.
 class ExpenseManager: ObservableObject {
-    @Published var expenses: [Expense] = []
-    @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities", "Rent", "Miscellaneous"]
-    @Published var budgets: [String: Double] = [:]
-    @Published var expensesByCategory: [String: Double] = [:]
-
-    var coreDataStack = CoreDataStack.shared
-
+    /// An array of expenses.
+        @Published var expenses: [Expense] = []
+        
+        /// An array of categories.
+        @Published var categories: [String] = ["Food", "Transport", "Entertainment", "Utilities", "Rent", "Miscellaneous"]
+        
+        /// A dictionary of budgets keyed by category.
+        @Published var budgets: [String: Double] = [:]
+        
+        /// A dictionary of expenses by category.
+        @Published var expensesByCategory: [String: Double] = [:]
+        
+        /// The Core Data stack.
+        var coreDataStack = CoreDataStack.shared
+    
+    /// Initializes the expense manager.
     init() {
         fetchExpenses()
         fetchBudgets()
         fetchDataFromAPI()
     }
 
+    /// Fetches expenses from Core Data.
     func fetchExpenses() {
         let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest()
         do {
@@ -30,7 +40,8 @@ class ExpenseManager: ObservableObject {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
-
+    
+    /// Fetches budgets from Core Data.
     func fetchBudgets() {
         let fetchRequest: NSFetchRequest<Budget> = Budget.fetchRequest()
         do {
@@ -45,11 +56,15 @@ class ExpenseManager: ObservableObject {
         }
     }
 
+    /// Adds a new expense.
+    /// - Parameter expense: The expense to add.
     func addExpense(_ expense: Expense) {
         expenses.append(expense)
         saveContext()
     }
 
+    /// Deletes an expense.
+    /// - Parameter offsets: The index set of the expense to delete.
     func deleteExpense(at offsets: IndexSet) {
         for index in offsets {
             let expense = expenses[index]
@@ -59,11 +74,15 @@ class ExpenseManager: ObservableObject {
         fetchExpenses()
     }
 
+    /// Adds a new category.
+    /// - Parameter category: The category to add.
     func addCategory(_ category: String) {
         categories.append(category)
         saveContext()
     }
 
+    /// Deletes a category.
+    /// - Parameter offsets: The index set of the category to delete.
     func deleteCategory(at offsets: IndexSet) {
         for index in offsets {
             let category = categories[index]
@@ -72,26 +91,40 @@ class ExpenseManager: ObservableObject {
         }
         saveContext()
     }
-
+    
+    /// Sets the budget for a category.
+    /// - Parameters:
+    /// - category: The category for which to set the budget.
+    /// - amount: The budget amount.
     func setBudget(for category: String, amount: Double) {
         budgets[category] = amount
         saveContext()
     }
-
+    
+    /// Gets the budget for a category.
+    /// - Parameter category: The category for which to get the budget.
+    /// - Returns: The budget amount.
     func getBudget(for category: String) -> Double {
         return budgets[category] ?? 0.0
     }
 
+    /// Calculates the total expenses for a category.
+    /// - Parameter category: The category for which to calculate the total.
+    /// - Returns: The total expenses for the category.
     func totalForCategory(_ category: String) -> Double {
         return expenses.filter { $0.category == category }.reduce(0) { $0 + $1.amount }
     }
 
+    /// Calculates the remaining budget for a category.
+    /// - Parameter category: The category for which to calculate the remaining budget.
+    /// - Returns: The remaining budget for the category.
     func remainingBudget(for category: String) -> Double {
         let totalExpensesForCategory = expenses.filter { $0.category == category }.map { $0.amount }.reduce(0, +)
         let budgetForCategory = getBudget(for: category)
         return budgetForCategory - totalExpensesForCategory
     }
 
+    /// Saves the Core Data context.
     func saveContext() {
         do {
             try coreDataStack.context.save()
@@ -100,7 +133,7 @@ class ExpenseManager: ObservableObject {
         }
     }
 
-    // Networking code to fetch data from API
+    /// Fetches data from an API.
     func fetchDataFromAPI() {
         NetworkManager.shared.fetchJSONData(url: "https://api.example.com/data") { (decodedData: [APIExpense]?, error) in
             if let decodedData = decodedData {
