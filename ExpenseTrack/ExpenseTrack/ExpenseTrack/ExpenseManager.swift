@@ -2,15 +2,15 @@ import SwiftUI
 import Combine
 import CoreData
 
-/// `ExpenseManager` is a class that manages all expense-related operations.
-///
-/// This class provides published properties for expenses, categories, budgets, and expenses by category. It also provides methods for fetching expenses from Core Data, adding and deleting expenses and categories, setting and getting budgets for categories, calculating total expenses for a category, calculating the remaining budget for a category, saving the Core Data context, and fetching data from an API.
+/// `APIExpense` is a struct that represents an expense fetched from an API.
 struct APIExpense: Decodable {
     let amount: Double
     let category: String
 }
 
-/// Manages all expense-related operations.
+/// `ExpenseManager` is a class that manages all expense-related operations.
+///
+/// This class provides published properties for expenses, categories, budgets, and expenses by category. It also provides methods for fetching expenses from Core Data, adding and deleting expenses and categories, setting and getting budgets for categories, calculating total expenses for a category, calculating the remaining budget for a category, saving the Core Data context, and fetching data from an API.
 class ExpenseManager: ObservableObject {
     
     /// An array of expenses.
@@ -115,14 +115,15 @@ class ExpenseManager: ObservableObject {
         case deleteFailed
     }
     
-    
     /// Fetches data from an API.
     func fetchDataFromAPI() {
-        NetworkManager.shared.fetchJSONData(url: "https://api.example.com/data") { (decodedData: [APIExpense]?, error) in
-            if let decodedData = decodedData {
+        NetworkManager.shared.fetchJSONData(url: "https://api.example.com/data") { (result: Result<[APIExpense], NetworkError>) in
+            switch result {
+            case .success(let decodedData):
                 for _ in decodedData {
+                    // Do something with decodedData
                 }
-            } else if let error = error {
+            case .failure(let error):
                 print("Error fetching data: \(error)")
             }
         }

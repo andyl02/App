@@ -30,7 +30,7 @@ struct ReportGenerationView: View {
                     .fontWeight(.bold)
                     .padding(.vertical, 10)
                 ForEach(self.expenseManager.categories, id: \.self) { category in
-                    let total = self.expenseManager.totalForCategory(category)
+                    let total = self.expenseManager.totalForCategory(category)  // Make sure this method exists in ExpenseManager
                     Text("\(category): $\(total, specifier: "%.2f")")
                 }
                 .padding(.bottom, 20)
