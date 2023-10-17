@@ -1,5 +1,12 @@
 import Foundation
 
+/// A custom error type for network-related errors.
+enum NetworkError: Error {
+    case invalidURL
+    case decodingError
+    case networkError(Error)
+}
+
 /// A class that manages network requests for the application.
 ///
 /// `NetworkManager` is responsible for fetching data from a REST API. It provides methods to fetch raw data and JSON data.
@@ -26,7 +33,7 @@ class NetworkManager {
     ///   - completion: The completion handler to call when the request is complete. This handler is passed the fetched data and any error that occurred.
     func fetchData(url: String, completion: @escaping (Data?, Error?) -> Void) {
         guard let url = URL(string: url) else {
-            completion(nil, NSError(domain: "Invalid URL", code: 400, userInfo: nil))
+            completion(nil, NetworkError.invalidURL)
             return
         }
         
@@ -42,17 +49,23 @@ class NetworkManager {
     /// - Parameters:
     ///   - url: The URL to fetch data from.
     ///   - completion: The completion handler to call when the request is complete. This handler is passed the decoded data and any error that occurred.
-    func fetchJSONData<T: Decodable>(url: String, completion: @escaping (T?, Error?) -> Void) {
+    func fetchJSONData<T: Decodable>(url: String, completion: @escaping (Result<T, NetworkError>) -> Void) {
         fetchData(url: url) { (data, error) in
-            if let data = data {
-                do {
-                    let decodedData = try JSONDecoder().decode(T.self, from: data)
-                    completion(decodedData, nil)
-                } catch {
-                    completion(nil, error)
-                }
-            } else {
-                completion(nil, error)
+            if let error = error {
+                completion(.failure(.networkError(error)))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.invalidURL))
+                return
+            }
+            
+            do {
+                let decodedData = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(decodedData))
+            } catch {
+                completion(.failure(.decodingError))
             }
         }
     }
