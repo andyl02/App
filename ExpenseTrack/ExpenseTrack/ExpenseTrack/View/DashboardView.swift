@@ -23,7 +23,9 @@ struct DashboardView: View {
                     PieChartView(data: expenseManager.expensesByCategory)
                         .frame(height: 300)
                         .padding(.horizontal)
-                    
+                        .onAppear {
+                            print("Pie chart data: \(expenseManager.expensesByCategory)")  // Debug print
+                        }
                 }
                 .padding(.horizontal)
             }

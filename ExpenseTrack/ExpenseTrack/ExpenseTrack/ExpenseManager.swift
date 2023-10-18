@@ -2,15 +2,15 @@ import SwiftUI
 import Combine
 import CoreData
 
-/// `APIExpense` is a struct that represents an expense fetched from an API.
+/// `ExpenseManager` is a class that manages all expense-related operations.
+///
+/// This class provides published properties for expenses, categories, budgets, and expenses by category. It also provides methods for fetching expenses from Core Data, adding and deleting expenses and categories, setting and getting budgets for categories, calculating total expenses for a category, calculating the remaining budget for a category, saving the Core Data context, and fetching data from an API.
 struct APIExpense: Decodable {
     let amount: Double
     let category: String
 }
 
-/// `ExpenseManager` is a class that manages all expense-related operations.
-///
-/// This class provides published properties for expenses, categories, budgets, and expenses by category. It also provides methods for fetching expenses from Core Data, adding and deleting expenses and categories, setting and getting budgets for categories, calculating total expenses for a category, calculating the remaining budget for a category, saving the Core Data context, and fetching data from an API.
+/// Manages all expense-related operations.
 class ExpenseManager: ObservableObject {
     
     /// An array of expenses.
@@ -73,7 +73,7 @@ class ExpenseManager: ObservableObject {
     /// - amount: The budget amount.
     func setBudget(for category: String, amount: Double) {
         budgets[category] = amount
-        saveContext()
+        saveContext()  // Save the context after setting the budget
     }
     
     /// Gets the budget for a category.
@@ -120,9 +120,7 @@ class ExpenseManager: ObservableObject {
         NetworkManager.shared.fetchJSONData(url: "https://api.example.com/data") { (result: Result<[APIExpense], NetworkError>) in
             switch result {
             case .success(let decodedData):
-                for _ in decodedData {
-                    // Do something with decodedData
-                }
+                print("Successfully fetched data: \(decodedData)")  // Added an executable statement
             case .failure(let error):
                 print("Error fetching data: \(error)")
             }
