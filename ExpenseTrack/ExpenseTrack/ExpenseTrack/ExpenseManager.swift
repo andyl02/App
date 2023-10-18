@@ -33,6 +33,7 @@ class ExpenseManager: ObservableObject {
         do {
             try fetchExpenses()
             fetchDataFromAPI()
+            loadBudgetsFromCoreData()  // Load budgets from Core Data
         } catch let error {
             print("Initialization failed: \(error)")
         }
@@ -74,7 +75,7 @@ class ExpenseManager: ObservableObject {
     /// - amount: The budget amount.
     func setBudget(for category: String, amount: Double) {
         budgets[category] = amount
-        saveContext()
+        saveBudgetsToCoreData()  // Save to Core Data
     }
     
     /// Gets the budget for a category.
@@ -121,7 +122,7 @@ class ExpenseManager: ObservableObject {
         NetworkManager.shared.fetchJSONData(url: "https://api.example.com/data") { (result: Result<[APIExpense], NetworkError>) in
             switch result {
             case .success(let decodedData):
-                print("Successfully fetched data: \(decodedData)")  // Added an executable statement
+                print("Successfully fetched data: \(decodedData)")
             case .failure(let error):
                 print("Error fetching data: \(error)")
             }
@@ -141,26 +142,47 @@ class ExpenseManager: ObservableObject {
 
     /// Saves budgets to Core Data.
     func saveBudgetsToCoreData() {
-        // Your Core Data saving logic for budgets
-        do {
-            let data = try JSONEncoder().encode(budgets)
-            UserDefaults.standard.set(data, forKey: "budgets")
-            print("Budgets saved to Core Data")
-        } catch {
-            print("Failed to save budgets: \(error)")
+        // Create or update Core Data objects for budgets
+        for (category, budget) in budgets {
+            if let existingBudget = fetchBudget(for: category) {
+                existingBudget.amount = budget
+            } else {
+                let newBudget = Budget(context: coreDataStack.context)
+                newBudget.category = category
+                newBudget.amount = budget
+            }
         }
+        saveContext()
     }
     
     /// Loads budgets from Core Data.
     func loadBudgetsFromCoreData() {
-        // Your Core Data loading logic for budgets
-        if let data = UserDefaults.standard.data(forKey: "budgets") {
-            do {
-                budgets = try JSONDecoder().decode([String: Double].self, from: data)
-                print("Budgets loaded from Core Data")
-            } catch {
-                print("Failed to load budgets: \(error)")
+        // Fetch budgets from Core Data
+        let fetchRequest: NSFetchRequest<Budget> = Budget.fetchRequest()
+        do {
+            let fetchedBudgets = try coreDataStack.context.fetch(fetchRequest)
+            for budget in fetchedBudgets {
+                if let category = budget.category {
+                    budgets[category] = budget.amount
+                }
             }
+        } catch {
+            print("Failed to load budgets: \(error)")
+        }
+    }
+    
+    /// Fetches a budget for a specific category from Core Data.
+    /// - Parameter category: The category for which to fetch the budget.
+    /// - Returns: The `Budget` object if it exists, otherwise `nil`.
+    private func fetchBudget(for category: String) -> Budget? {
+        let fetchRequest: NSFetchRequest<Budget> = Budget.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "category == %@", category)
+        do {
+            let fetchedBudgets = try coreDataStack.context.fetch(fetchRequest)
+            return fetchedBudgets.first
+        } catch {
+            print("Failed to fetch budget for category \(category): \(error)")
+            return nil
         }
     }
 }
