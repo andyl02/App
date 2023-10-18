@@ -1,55 +1,28 @@
 import SwiftUI
 
-/// `BudgetTrackingView` is a SwiftUI view for tracking a user's budget.
+/// `BudgetTrackingView` is a SwiftUI view for tracking budgets.
 ///
-/// This view displays the user's initial budget, allows them to set a new budget, and shows the remaining budget after expenses.
-///
-/// - Requires: `ExpenseManager` environment object.
+/// This view displays the remaining budget for each category.
 struct BudgetTrackingView: View {
-    /// An environment object that manages the user's expenses.
+    /// The environment object that manages the expenses.
     @EnvironmentObject var expenseManager: ExpenseManager
-    
-    /// The user's initial budget.
-    @State private var budget: Double = 1000.00
-    
-    /// A string representation of the budget that the user is currently editing.
-    @State private var editingBudget: String = "1000.00"
-
-    /// The user's remaining budget after subtracting their total expenses.
-    var remainingBudget: Double {
-        let totalExpenses = expenseManager.expenses.reduce(0) { $0 + $1.amount }
-        return budget - totalExpenses
-    }
 
     /// The body of the `BudgetTrackingView`.
     var body: some View {
-        VStack {
-            Text("Budget Tracking")
-                .font(.largeTitle)
-                .padding()
-
-            HStack {
-                Text("Set Budget:")
-                TextField("$", text: $editingBudget, onCommit: {
-                    if let newBudget = Double(editingBudget) {
-                        budget = newBudget
+        NavigationView {
+            List {
+                ForEach(expenseManager.categories, id: \.self) { category in
+                    HStack {
+                        Text(category)
+                        Spacer()
+                        Text("$\(expenseManager.remainingBudget(for: category), specifier: "%.2f")")
                     }
-                })
-                .keyboardType(.decimalPad)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .frame(width: 100)
+                }
             }
-            .padding()
-
-            Text("Initial Budget: $\(budget, specifier: "%.2f")")
-                .font(.title2)
-                .padding()
-
-            Text("Remaining Budget: $\(remainingBudget, specifier: "%.2f")")
-                .font(.title2)
-                .padding()
-
+            .navigationBarTitle("Budget Tracking")
+            .onDisappear {
+                expenseManager.saveContext()
+            }
         }
-        .padding()
     }
 }

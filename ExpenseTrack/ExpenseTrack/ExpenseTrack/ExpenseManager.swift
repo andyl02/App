@@ -44,6 +44,7 @@ class ExpenseManager: ObservableObject {
         let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest()
         do {
             expenses = try coreDataStack.context.fetch(fetchRequest)
+            updateExpensesByCategory()
         } catch {
             throw ExpenseManagerError.fetchFailed
         }
@@ -73,7 +74,7 @@ class ExpenseManager: ObservableObject {
     /// - amount: The budget amount.
     func setBudget(for category: String, amount: Double) {
         budgets[category] = amount
-        saveContext()  // Save the context after setting the budget
+        saveContext()
     }
     
     /// Gets the budget for a category.
@@ -125,5 +126,16 @@ class ExpenseManager: ObservableObject {
                 print("Error fetching data: \(error)")
             }
         }
+    }
+    
+    /// Updates the expenses by category.
+    func updateExpensesByCategory() {
+        var newExpensesByCategory: [String: Double] = [:]
+        for expense in expenses {
+            let category = expense.category ?? "Unknown"
+            let amount = expense.amount
+            newExpensesByCategory[category, default: 0] += amount
+        }
+        expensesByCategory = newExpensesByCategory
     }
 }
