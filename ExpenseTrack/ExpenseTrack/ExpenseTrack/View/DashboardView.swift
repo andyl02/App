@@ -24,7 +24,17 @@ struct DashboardView: View {
                         .frame(height: 300)
                         .padding(.horizontal)
                     
-                }
+                    // Display Remaining Budgets
+                    Text("Remaining Budgets")
+                        .font(.title2)
+                        .bold()
+                        .padding(.vertical, 10)
+                    
+                    ForEach(expenseManager.categories, id: \.self) { category in
+                        let remainingBudget = expenseManager.remainingBudget(for: category)
+                        Text("\(category): $\(remainingBudget, specifier: "%.2f")")
+                        
+                    }                }
                 .padding(.horizontal)
             }
             .navigationBarTitleDisplayMode(.inline)

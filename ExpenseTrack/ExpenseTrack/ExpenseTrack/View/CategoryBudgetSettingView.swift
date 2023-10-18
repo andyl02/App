@@ -1,15 +1,17 @@
 import SwiftUI
 
-/// `CategoryBudgetSettingView` is a SwiftUI view for setting budgets for categories.
+/// `CategoryBudgetSettingView` is a SwiftUI view that allows the user to set budgets for each category.
 ///
-/// This view allows the user to set a budget for each category.
+/// This view displays a list of categories and allows the user to set a budget for each one.
+///
+/// - Requires: `ExpenseManager` environment object.
 struct CategoryBudgetSettingView: View {
-    /// The environment object that manages the expenses.
+    /// An environment object that manages the user's expenses.
     @EnvironmentObject var expenseManager: ExpenseManager
     
-    /// Local state to hold temporary budgets
+    /// A dictionary that holds the temporary budgets for each category.
     @State private var tempBudgets: [String: Double] = [:]
-
+    
     /// The body of the `CategoryBudgetSettingView`.
     var body: some View {
         NavigationView {
@@ -18,22 +20,25 @@ struct CategoryBudgetSettingView: View {
                     HStack {
                         Text(category)
                         Spacer()
-                        TextField("Budget", value: Binding(
-                            get: { self.tempBudgets[category, default: self.expenseManager.budgets[category, default: 0.0]] },
-                            set: { self.tempBudgets[category] = $0 }
-                        ), format: .number)
+                        TextField("Budget", value: $tempBudgets[category], formatter: NumberFormatter())
                             .keyboardType(.decimalPad)
                     }
                 }
             }
-            .navigationBarTitle("Set Category Budget")
-            .onAppear {
-                self.tempBudgets = expenseManager.budgets
+            .navigationBarTitle("Set Category Budget", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Save") {
+                        for (category, budget) in tempBudgets {
+                            expenseManager.setBudget(for: category, amount: budget)
+                        }
+                        expenseManager.saveBudgetsToCoreData()
+                    }
+                }
             }
-            .onDisappear {
-                expenseManager.budgets = tempBudgets
-                expenseManager.saveContext()
-            }
+        }
+        .onAppear {
+            tempBudgets = expenseManager.budgets
         }
     }
 }

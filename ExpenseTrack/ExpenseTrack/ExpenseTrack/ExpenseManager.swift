@@ -138,4 +138,29 @@ class ExpenseManager: ObservableObject {
         }
         expensesByCategory = newExpensesByCategory
     }
+
+    /// Saves budgets to Core Data.
+    func saveBudgetsToCoreData() {
+        // Your Core Data saving logic for budgets
+        do {
+            let data = try JSONEncoder().encode(budgets)
+            UserDefaults.standard.set(data, forKey: "budgets")
+            print("Budgets saved to Core Data")
+        } catch {
+            print("Failed to save budgets: \(error)")
+        }
+    }
+    
+    /// Loads budgets from Core Data.
+    func loadBudgetsFromCoreData() {
+        // Your Core Data loading logic for budgets
+        if let data = UserDefaults.standard.data(forKey: "budgets") {
+            do {
+                budgets = try JSONDecoder().decode([String: Double].self, from: data)
+                print("Budgets loaded from Core Data")
+            } catch {
+                print("Failed to load budgets: \(error)")
+            }
+        }
+    }
 }

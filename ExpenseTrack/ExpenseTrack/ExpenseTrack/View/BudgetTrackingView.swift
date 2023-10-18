@@ -1,12 +1,14 @@
 import SwiftUI
 
-/// `BudgetTrackingView` is a SwiftUI view for tracking budgets.
+/// `BudgetTrackingView` is a SwiftUI view that allows the user to track their budgets.
 ///
-/// This view displays the remaining budget for each category.
+/// This view displays the budgets for each category and allows the user to update them.
+///
+/// - Requires: `ExpenseManager` environment object.
 struct BudgetTrackingView: View {
-    /// The environment object that manages the expenses.
+    /// An environment object that manages the user's expenses.
     @EnvironmentObject var expenseManager: ExpenseManager
-
+    
     /// The body of the `BudgetTrackingView`.
     var body: some View {
         NavigationView {
@@ -15,13 +17,17 @@ struct BudgetTrackingView: View {
                     HStack {
                         Text(category)
                         Spacer()
-                        Text("$\(expenseManager.remainingBudget(for: category), specifier: "%.2f")")
+                        Text("$\(expenseManager.getBudget(for: category), specifier: "%.2f")")
                     }
                 }
             }
-            .navigationBarTitle("Budget Tracking")
-            .onDisappear {
-                expenseManager.saveContext()
+            .navigationBarTitle("Budget Tracking", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Save") {
+                        expenseManager.saveBudgetsToCoreData()
+                    }
+                }
             }
         }
     }
