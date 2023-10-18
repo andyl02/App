@@ -33,7 +33,7 @@ class ExpenseManager: ObservableObject {
         do {
             try fetchExpenses()
             fetchDataFromAPI()
-            loadBudgetsFromCoreData()  // New Code
+            loadBudgetsFromCoreData()
         } catch let error {
             print("Initialization failed: \(error)")
         }
@@ -75,8 +75,8 @@ class ExpenseManager: ObservableObject {
     /// - amount: The budget amount.
     func setBudget(for category: String, amount: Double) {
         budgets[category] = amount
-        saveBudgetsToCoreData()  // New Code
-        NotificationCenter.default.post(name: NSNotification.Name("BudgetSaved"), object: nil)  // New Code
+        saveBudgetsToCoreData()
+        NotificationCenter.default.post(name: NSNotification.Name("BudgetSaved"), object: nil)
     }
     
     /// Gets the budget for a category.
@@ -123,7 +123,7 @@ class ExpenseManager: ObservableObject {
         NetworkManager.shared.fetchJSONData(url: "https://api.example.com/data") { (result: Result<[APIExpense], NetworkError>) in
             switch result {
             case .success(let decodedData):
-                print("Successfully fetched data: \(decodedData)")  // Added an executable statement
+                print("Successfully fetched data: \(decodedData)")
             case .failure(let error):
                 print("Error fetching data: \(error)")
             }
@@ -142,7 +142,7 @@ class ExpenseManager: ObservableObject {
     }
 
     /// Saves budgets to Core Data.
-    func saveBudgetsToCoreData() {  // New Method
+    func saveBudgetsToCoreData() {
         do {
             let data = try JSONEncoder().encode(budgets)
             UserDefaults.standard.set(data, forKey: "budgets")
@@ -153,7 +153,7 @@ class ExpenseManager: ObservableObject {
     }
     
     /// Loads budgets from Core Data.
-    func loadBudgetsFromCoreData() {  // New Method
+    func loadBudgetsFromCoreData() {
         if let data = UserDefaults.standard.data(forKey: "budgets") {
             do {
                 budgets = try JSONDecoder().decode([String: Double].self, from: data)
@@ -162,5 +162,19 @@ class ExpenseManager: ObservableObject {
                 print("Failed to load budgets: \(error)")
             }
         }
+    }
+
+    /// Adds a new expense.
+    /// - Parameters:
+    ///   - amount: The amount of the new expense.
+    ///   - category: The category of the new expense.
+    ///   - note: A note for the new expense.
+    func addExpense(amount: Double, category: String, note: String) {
+        let newExpense = Expense(context: coreDataStack.context)
+        newExpense.amount = amount
+        newExpense.category = category
+        newExpense.note = note
+        expenses.append(newExpense)
+        saveContext()
     }
 }

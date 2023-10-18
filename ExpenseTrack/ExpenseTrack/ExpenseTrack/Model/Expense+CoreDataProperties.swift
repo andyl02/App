@@ -23,6 +23,9 @@ extension ExpenseTrack.Expense {
     
     /// The unique identifier for the expense.
     @NSManaged public var id: UUID?
+    
+    // The unique identifier for the expense.
+    @NSManaged public var note: String?
 }
 
 /// Conformance to `Identifiable` protocol.

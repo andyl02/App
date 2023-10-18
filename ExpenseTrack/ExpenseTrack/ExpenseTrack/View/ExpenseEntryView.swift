@@ -45,7 +45,13 @@ struct ExpenseEntryView: View {
                 }
                 
                 Button("Save") {
-                    // Save logic here
+                    print("Save button tapped")  // Debugging line
+                    if let amountDouble = Double(amount), !selectedCategory.isEmpty {
+                        expenseManager.addExpense(amount: amountDouble, category: selectedCategory, note: note)
+                        print("Expense added")  // Debugging line
+                    } else {
+                        print("Invalid amount or category")  // Debugging line
+                    }
                 }
                 .font(.headline)
                 .foregroundColor(.white)
@@ -57,3 +63,4 @@ struct ExpenseEntryView: View {
         }
     }
 }
+
