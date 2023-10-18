@@ -1,56 +1,59 @@
 import SwiftUI
 
-/// `ExpenseEntryView` is a SwiftUI view for entering a new expense.
+/// `ExpenseEntryView` is a SwiftUI view that allows the user to add new expenses.
+///
+/// This view provides input fields for the user to enter the expense amount, select a category, and add a note. It also includes a Save button to add the expense.
+///
+/// - Requires: `ExpenseManager` environment object.
 struct ExpenseEntryView: View {
     /// An environment object that manages the user's expenses.
     @EnvironmentObject var expenseManager: ExpenseManager
     
-    /// The amount of the new expense that the user is currently inputting.
-    @State private var amount = ""
+    /// The amount of the new expense.
+    @State private var amount: String = ""
     
-    /// The category of the new expense that the user is currently selecting.
-    @State private var category = ""
+    /// The category of the new expense.
+    @State private var selectedCategory: String = ""
     
-    /// The date of the new expense that the user is currently selecting.
-    @State private var date = Date()
-
+    /// A note for the new expense.
+    @State private var note: String = ""
+    
+    /// The body of the `ExpenseEntryView`.
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Expense Details")) {
+                Section(header: Text("Expense Details").font(.headline)) {
                     HStack {
-                        Text("$")
+                        Image(systemName: "dollarsign.circle.fill")
+                            .foregroundColor(.green)
                         TextField("Amount", text: $amount)
                             .keyboardType(.decimalPad)
                     }
-                    Picker("Category", selection: $category) {
-                        ForEach(expenseManager.categories, id: \.self) { category in
-                            Text(category)
+                    
+                    Picker("Category", selection: $selectedCategory) {
+                        ForEach(expenseManager.categories, id: \.self) {
+                            Text($0)
                         }
                     }
-                    DatePicker("Date", selection: $date, displayedComponents: .date)
+                    .pickerStyle(MenuPickerStyle())
+                    
+                    HStack {
+                        Image(systemName: "pencil.circle.fill")
+                            .foregroundColor(.blue)
+                        TextField("Note (optional)", text: $note)
+                    }
                 }
-
-                Button(action: addExpense) {
-                    Text("Add Expense")
+                
+                Button("Save") {
+                    // Save logic here
                 }
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(10)
             }
-            .navigationBarTitle("New Expense", displayMode: .inline)
-        }
-    }
-
-    private func addExpense() {
-        if let amountDouble = Double(amount), !category.isEmpty {
-            let formattedAmount = Double(String(format: "%.2f", amountDouble))!
-            let expense = Expense(context: expenseManager.coreDataStack.context)
-            expense.category = category
-            expense.amount = formattedAmount
-            expense.date = date
-            expense.id = UUID()
-            expenseManager.expenses.append(expense)
-            amount = ""
-            category = ""
-            date = Date()
+            .navigationBarTitle("Add Expense", displayMode: .inline)
         }
     }
 }

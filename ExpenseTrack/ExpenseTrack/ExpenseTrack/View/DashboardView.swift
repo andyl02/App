@@ -24,17 +24,20 @@ struct DashboardView: View {
                         .frame(height: 300)
                         .padding(.horizontal)
                     
-                    // Display Remaining Budgets
-                    Text("Remaining Budgets")
-                        .font(.title2)
-                        .bold()
-                        .padding(.vertical, 10)
-                    
-                    ForEach(expenseManager.categories, id: \.self) { category in
-                        let remainingBudget = expenseManager.remainingBudget(for: category)
-                        Text("\(category): $\(remainingBudget, specifier: "%.2f")")
+                    // New Card Layout for Remaining Budgets
+                    VStack {
+                        Text("Remaining Budgets")
+                            .font(.title2)
+                            .bold()
+                            .padding(.vertical, 10)
                         
-                    }                }
+                        ForEach(expenseManager.categories, id: \.self) { category in
+                            let remainingBudget = expenseManager.remainingBudget(for: category)
+                            BudgetCardView(category: category, remainingBudget: remainingBudget)
+                        }
+                    }
+                    .padding(.horizontal)
+                }
                 .padding(.horizontal)
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -46,5 +49,28 @@ struct DashboardView: View {
                 }
             }
         }
+    }
+}
+
+/// `BudgetCardView` is a SwiftUI view that displays the remaining budget for a category.
+///
+/// - Parameters:
+///   - category: The category name.
+///   - remainingBudget: The remaining budget for the category.
+struct BudgetCardView: View {
+    var category: String
+    var remainingBudget: Double
+    
+    var body: some View {
+        HStack {
+            Text(category)
+                .font(.headline)
+            Spacer()
+            Text("$\(remainingBudget, specifier: "%.2f")")
+                .font(.title)
+        }
+        .padding()
+        .background(Color.gray.opacity(0.2))
+        .cornerRadius(10)
     }
 }
