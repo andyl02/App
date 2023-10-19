@@ -17,55 +17,30 @@ struct HomeView: View {
             List {
                 // Various navigation links and buttons for different features.
                 NavigationLink(destination: ExpenseEntryView()) {
-                    HStack {
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.green)
-                        Text("Add Expense")
-                    }
+                    HomeRowView(icon: "plus.circle.fill", iconColor: .green, text: "Add Expense")
                 }
                 NavigationLink(destination: CategoryManagementView()) {
-                    HStack {
-                        Image(systemName: "folder.circle.fill")
-                            .foregroundColor(.blue)
-                        Text("Manage Categories")
-                    }
+                    HomeRowView(icon: "folder.circle.fill", iconColor: .blue, text: "Manage Categories")
                 }
                 NavigationLink(destination: BudgetTrackingView()) {
-                    HStack {
-                        Image(systemName: "chart.pie.fill")
-                            .foregroundColor(.orange)
-                        Text("Track Budget")
-                    }
+                    HomeRowView(icon: "chart.pie.fill", iconColor: .orange, text: "Track Budget")
                 }
                 NavigationLink(destination: ReportGenerationView()) {
-                    HStack {
-                        Image(systemName: "doc.text.fill")
-                            .foregroundColor(.purple)
-                        Text("Generate Report")
-                    }
+                    HomeRowView(icon: "doc.text.fill", iconColor: .purple, text: "Generate Report")
                 }
                 NavigationLink(destination: DashboardView()) {
-                    HStack {
-                        Image(systemName: "gauge")
-                            .foregroundColor(.red)
-                        Text("Dashboard")
-                    }
+                    HomeRowView(icon: "gauge", iconColor: .red, text: "Dashboard")
                 }
                 NavigationLink(destination: CategoryBudgetSettingView()) {
-                    HStack {
-                        Image(systemName: "dollarsign.circle.fill")
-                            .foregroundColor(.yellow)
-                        Text("Set Category Budgets")
-                    }
+                    HomeRowView(icon: "dollarsign.circle.fill", iconColor: .yellow, text: "Set Category Budgets")
                 }
+                NavigationLink(destination: ExpenseListView()) {
+                    HomeRowView(icon: "list.bullet", iconColor: .pink, text: "View Expenses")
+                }  
                 Button(action: {
                     self.setNotification()
                 }) {
-                    HStack {
-                        Image(systemName: "bell.fill")
-                            .foregroundColor(.gray)
-                        Text("Set Reminder")
-                    }
+                    HomeRowView(icon: "bell.fill", iconColor: .gray, text: "Set Reminder")
                 }
             }
             .alert(isPresented: $showNotificationAlert) {
@@ -99,5 +74,42 @@ struct HomeView: View {
                 }
             }
         }
+    }
+}
+
+/// `HomeRowView` is a SwiftUI view that represents a single row in the `HomeView`.
+///
+/// This view includes an icon, icon color, and text to display.
+///
+/// - Parameters:
+///   - icon: A string representing the system name of the icon.
+///   - iconColor: A `Color` value for the icon.
+///   - text: A string representing the text to display.
+struct HomeRowView: View {
+    var icon: String
+    var iconColor: Color
+    var text: String
+    
+    /// The body of the `HomeRowView`.
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(iconColor)
+                .font(.system(size: 24))
+            Text(text)
+                .font(.system(size: 18))
+                .fontWeight(.medium)
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(LinearGradient(gradient: Gradient(colors: [Color.white, iconColor.opacity(0.2)]), startPoint: .leading, endPoint: .trailing))
+        .cornerRadius(15)
+        .shadow(color: iconColor.opacity(0.3), radius: 10, x: 0, y: 10)
+    }
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
     }
 }

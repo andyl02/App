@@ -90,7 +90,7 @@ struct PieChartView: View {
                     Text(key)
                         .font(.headline)
                     Spacer()
-                    Text("\(data[key] ?? 0, specifier: "%.2f")")
+                    Text("$\(data[key] ?? 0, specifier: "%.2f")")
                         .font(.subheadline)
                 }
                 .padding(.horizontal)

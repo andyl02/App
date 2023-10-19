@@ -18,39 +18,46 @@ struct ExpenseEntryView: View {
     /// A note for the new expense.
     @State private var note: String = ""
     
+    /// State variable to control the display of the alert.
+    @State private var showingAlert = false
+    
     /// The body of the `ExpenseEntryView`.
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Expense Details").font(.headline)) {
-                    HStack {
-                        Image(systemName: "dollarsign.circle.fill")
-                            .foregroundColor(.green)
-                        TextField("Amount", text: $amount)
-                            .keyboardType(.decimalPad)
-                    }
-                    
-                    Picker("Category", selection: $selectedCategory) {
-                        ForEach(expenseManager.categories, id: \.self) {
-                            Text($0)
+            VStack {
+                Text("Add Expense")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 20)
+                
+                Form {
+                    Section(header: Text("Expense Details").font(.headline)) {
+                        HStack {
+                            Image(systemName: "dollarsign.circle.fill")
+                                .foregroundColor(.green)
+                            TextField("Amount", text: $amount)
+                                .keyboardType(.decimalPad)
                         }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    
-                    HStack {
-                        Image(systemName: "pencil.circle.fill")
-                            .foregroundColor(.blue)
-                        TextField("Note (optional)", text: $note)
+                        
+                        Picker("Category", selection: $selectedCategory) {
+                            ForEach(expenseManager.categories, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        
+                        HStack {
+                            Image(systemName: "pencil.circle.fill")
+                                .foregroundColor(.blue)
+                            TextField("Note (optional)", text: $note)
+                        }
                     }
                 }
                 
                 Button("Save") {
-                    print("Save button tapped")  // Debugging line
                     if let amountDouble = Double(amount), !selectedCategory.isEmpty {
                         expenseManager.addExpense(amount: amountDouble, category: selectedCategory, note: note)
-                        print("Expense added")  // Debugging line
-                    } else {
-                        print("Invalid amount or category")  // Debugging line
+                        showingAlert = true  // Show the alert
                     }
                 }
                 .font(.headline)
@@ -58,9 +65,12 @@ struct ExpenseEntryView: View {
                 .padding()
                 .background(Color.blue)
                 .cornerRadius(10)
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Expense Added"), message: Text("Your expense has been successfully added."), dismissButton: .default(Text("OK")))
+                }
+                .padding(.top, 20)
             }
-            .navigationBarTitle("Add Expense", displayMode: .inline)
+            .padding()
         }
     }
 }
-

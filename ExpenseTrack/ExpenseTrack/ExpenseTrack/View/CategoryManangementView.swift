@@ -19,20 +19,31 @@ struct CategoryManagementView: View {
                 List {
                     ForEach(expenseManager.categories, id: \.self) { category in
                         Text(category)
+                            .font(.headline)
+                            .padding(.vertical, 8)
                     }
                     .onDelete(perform: deleteCategory)
                 }
+                .listStyle(InsetGroupedListStyle())
 
                 HStack {
                     TextField("New Category", text: $newCategory)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal, 16)
                     Button(action: addCategory) {
                         Text("Add")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .background(Color.blue)
+                            .cornerRadius(8)
                     }
                 }
-                .padding()
+                .padding(.horizontal)
             }
             .navigationTitle("Manage Categories")
+            .navigationBarItems(trailing: EditButton())
         }
     }
 
